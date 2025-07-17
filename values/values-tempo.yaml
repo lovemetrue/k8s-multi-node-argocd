@@ -1,0 +1,112 @@
+global:
+## Настройки provisioner (k8s, deckhouse)
+  provisioner: "deckhouse"
+tempo:
+  config: |
+    multitenancy_enabled: false
+    usage_report:
+      reporting_enabled: true
+
+    compactor:
+      compaction:
+        block_retention: 24h
+
+    distributor:
+      receivers:
+        otlp:
+          protocols:
+            grpc:
+            http:
+
+    ingester:
+      lifecycler:
+        ring:
+          kvstore:
+            store: inmemory
+      trace_idle_period: 10s
+      max_block_duration: 5m
+
+    server:
+      http_listen_port: 3200
+      grpc_listen_port: 9095
+
+    storage:
+      retention: 24h
+      trace:
+        backend: s3
+        s3:
+          bucket: tempo
+          endpoint: master.sale.elewise.com:9000
+          access_key: elma365user
+          secret_key: SecretPassword
+          insecure: false
+          tls_insecure_skip_verify: true
+          forcepathstyle: true
+    fullnameOverride: "tempo"
+    repository: hub.elma365.tech/docker/addons/grafana/tempo
+    tag: "2.5.0"
+
+    querier:
+      frontend_worker:
+        frontend_address: tempo-query-frontend:9095
+
+    query_frontend:
+      search:
+        duration_slo: 5s
+
+    overrides:
+      metrics_generator_processors:
+        - service-graphs
+        - span-metrics
+
+    metrics_generator:
+      search_enabled: true
+      storage:
+        backend: s3
+        s3:
+          bucket: tempo
+          endpoint: master.sale.elewise.com:9000
+          access_key: elma365user
+          secret_key: SecretPassword
+          insecure: false
+          tls_insecure_skip_verify: true
+          forcepathstyle: true
+      processor:
+        span_metrics:
+          enabled: true
+
+extraEnv:
+ - name: SSL_CERT_FILE
+   value: /home/kind/ssl/rootCA.pem
+extraVolumes:
+  - name: tempo-certs
+    configMap:
+      name: tempo-ca
+extraVolumeMounts:
+  - name: tempo-certs
+    mountPath: /etc/tempo-certs
+    readOnly: true
+
+jaeger:
+  environmentVariables:
+    MEMORY_MAX_TRACES: 100000
+    SPAN_STORAGE_TYPE: badger
+    BADGER_EPHEMERAL: false
+    BADGER_DIRECTORY_VALUE: /badger/data
+    BADGER_DIRECTORY_KEY: /badger/key
+    REPORTER_TYPE: grpc
+    REPORTER_GRPC_HOST_PORT: tempo:14250
+    REPORTER_GRPC_RETRY_MAX: 100
+  tolerations: 
+    - key: "dedicated"
+      operator: "Equal"
+      value: "staging"
+      effect: "NoSchedule"   
+  ## параметры подключения к приватному registry
+  image:
+  # адрес и путь для приватного registry
+    repository: hub.elma365.tech/docker/addons/jaegertracing/jaeger-agent
+    versionOverride: "1.57.0"
+  #   pullPolicy: IfNotPresent
+  # imagePullSecrets: 
+  #   - myRegistryKeySecretName
