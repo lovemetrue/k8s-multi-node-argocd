@@ -115,7 +115,7 @@ elma365:
     curlMigrationsMaxTime: 3000
 ##
 ## включить режим отладки платформы
-  debug: true
+  debug: false
 ##
   bootstrapCompany:
 ## эл. почта администратора
