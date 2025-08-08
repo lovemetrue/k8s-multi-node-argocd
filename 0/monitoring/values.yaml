@@ -3,7 +3,7 @@ kube-prometheus-stack:
   # -- Настройки grafana
   grafana:
     nodeSelector:
-      kubernetes.io/hostname: k8s-observer
+      node-role.kubernetes.io/observer: ""
     tolerations:
     - key: "node-role.kubernetes.io/observer"
       operator: "Exists"
@@ -72,7 +72,7 @@ kube-prometheus-stack:
   prometheus:
     prometheusSpec:
       nodeSelector:
-        kubernetes.io/hostname: k8s-observer
+        node-role.kubernetes.io/observer: ""
       tolerations:
         - key: "node-role.kubernetes.io/observer"
           operator: "Exists"
@@ -91,19 +91,28 @@ kube-prometheus-stack:
       serviceMonitorSelectorNilUsesHelmValues: false
       podMonitorSelectorNilUsesHelmValues: false
       scrapeConfigSelectorNilUsesHelmValues: false
+      scrapeInterval: 30s
+      evaluationInterval: 30s
       podMonitorNamespaceSelector:
-      matchLabels:
-        - monitoring
+        matchLabels:
+          monitoring: true
       serviceMonitorNamespaceSelector:
         matchLabels:
-        - monitoring
+          monitoring: true
       scrapeConfigNamespaceSelector:
         matchLabels:
-        - monitoring
+          monitoring: true
       ## -- Как долго хранить метрики
-      retention: 12h
+      retention: 7d
       ## -- Максимальный размер метрик
       retentionSize: ""
   global:
     imageRegistry: "hub.elma365.tech/docker/addons"
     imagePullSecrets: []
+
+  # -- Настройки exporter
+  exporters:
+    kubeScheduler:
+      enabled: false
+    kubeControllerManager:
+      enabled: false

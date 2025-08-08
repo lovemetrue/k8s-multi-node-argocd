@@ -54,7 +54,7 @@ loki:
     useTestSchema: false
     # -- Конфигурация лимитов
     limits_config:
-      retention_period: 744h #default 744h
+      retention_period: 360h #default 744h
       per_stream_rate_limit: 512M
       per_stream_rate_limit_burst: 1024M
     commonConfig:
