@@ -63,7 +63,7 @@ elma365:
         all: true
       provisioner: "k8s"
       serviceMonitor:
-        labels: ""
+        labels: "monitoring"
         metricRelabelings: ""
         relabelings: ""
       dashboard:
@@ -71,7 +71,7 @@ elma365:
       alerts:
         enabled: false
       lowcode:
-        metricExportEnabled: true # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
+        metricExportEnabled: false # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
 ## автомасштабирование сервисов
     autoscaling:
       enabled: false
