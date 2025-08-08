@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/LovemeTrue/ArgoCI-CD.git
+    repoURL: https://github.com/LovemeTrue/k8s-multi-node-argocd.git
     targetRevision: main
-    path: 2025.4.6/elma365-dbs
+    path: 2025.6.9/elma365-dbs
     helm:
       valueFiles:
         - values-elma365-dbs.yaml

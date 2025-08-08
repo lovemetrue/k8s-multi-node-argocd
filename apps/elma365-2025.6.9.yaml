@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: elma365-2025.4.6
+  name: elma365-2025.6.9
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
@@ -9,9 +9,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/LovemeTrue/ArgoCI-CD.git
+    repoURL: https://github.com/LovemeTrue/k8s-multi-node-argocd.git
     targetRevision: main
-    path: 2025.4.6/elma365
+    path: 2025.6.9/elma365
     helm:
       valueFiles:
         - values-elma365.yaml
