@@ -2,6 +2,10 @@
 kube-prometheus-stack:
   # -- Настройки grafana
   grafana:
+    tolerations:
+    - key: "node-role.kubernetes.io/observer"
+      operator: "Exists"
+      effect: "NoSchedule"
     assertNoLeakedSecrets: false
     # -- адрес по которому будет доступна grafana
     ingress:
@@ -65,6 +69,19 @@ kube-prometheus-stack:
   # -- Настройки prometheus
   prometheus:
     prometheusSpec:
+      nodeSelector:
+      kubernetes.io/hostname: k8s-observer
+      tolerations:
+        - key: "node-role.kubernetes.io/observer"
+          operator: "Exists"
+          effect: "NoSchedule"
+      resources:
+        requests:
+          cpu: 300m
+          memory: 500Mi
+        limits:
+          cpu: 1
+          memory: 1Gi
       # -- включить mimir в качестве долгосрочного хранилища
       # remoteWrite:
       # - url: http://mimir-nginx:80/api/v1/push

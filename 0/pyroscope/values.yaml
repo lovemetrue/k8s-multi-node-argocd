@@ -51,8 +51,8 @@ pyroscope:
     profiles.grafana.com/memory.port_name: http2
     profiles.grafana.com/cpu.scrape: "true"
     profiles.grafana.com/cpu.port_name: http2
-    profiles.grafana.com/goroutine.scrape: "true"
-    profiles.grafana.com/goroutine.port_name: http2
+    # profiles.grafana.com/goroutine.scrape: "true"
+    # profiles.grafana.com/goroutine.port_name: http2
     # profiles.grafana.com/block.scrape: "true"
     # profiles.grafana.com/mutex.scrape: "true"
 

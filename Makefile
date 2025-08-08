@@ -1,6 +1,6 @@
 # === config ===
 DBS_MSG ?= обновление параметров БД
-REPO_URL = https://github.com/LovemeTrue/ArgoCI-CD.git
+REPO_URL = https://github.com/LovemeTrue/k8s-multi-node-argocd.git
 
 # === targets ===
 
@@ -12,7 +12,6 @@ help:
 
 VERSION ?= 0
 APPS_DIR := apps
-KUBECONFIG=/home/panov/.kube/kind_conf
 
 
 .PHONY: clean-argocd
@@ -221,7 +220,7 @@ gen-apps:
 	@echo "        - values-tempo.yaml" >> $(APPS_DIR)/tempo.yaml
 	@echo "  destination:" >> $(APPS_DIR)/tempo.yaml
 	@echo "    server: https://kubernetes.default.svc" >> $(APPS_DIR)/tempo.yaml
-	@echo "    namespace: d8-monitoring" >> $(APPS_DIR)/tempo.yaml
+	@echo "    namespace: monitoring" >> $(APPS_DIR)/tempo.yaml
 	@echo "  syncPolicy:" >> $(APPS_DIR)/tempo.yaml
 	@echo "    automated:" >> $(APPS_DIR)/tempo.yaml
 	@echo "      prune: true" >> $(APPS_DIR)/tempo.yaml
@@ -258,7 +257,7 @@ gen-pyroscope-app:
 	@echo "        - pyroscope-values.yaml" >> $(APPS_DIR)/pyroscope.yaml
 	@echo "  destination:" >> $(APPS_DIR)/pyroscope.yaml
 	@echo "    server: https://kubernetes.default.svc" >> $(APPS_DIR)/pyroscope.yaml
-	@echo "    namespace: d8-pyroscope" >> $(APPS_DIR)/pyroscope.yaml
+	@echo "    namespace: monitoring" >> $(APPS_DIR)/pyroscope.yaml
 	@echo "  syncPolicy:" >> $(APPS_DIR)/pyroscope.yaml
 	@echo "    automated:" >> $(APPS_DIR)/pyroscope.yaml
 	@echo "      prune: true" >> $(APPS_DIR)/pyroscope.yaml

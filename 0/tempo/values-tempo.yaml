@@ -1,6 +1,6 @@
 global:
 ## Настройки provisioner (k8s, deckhouse)
-  provisioner: "deckhouse"
+  provisioner: "k8s"
 tempo:
   config: |
     multitenancy_enabled: false

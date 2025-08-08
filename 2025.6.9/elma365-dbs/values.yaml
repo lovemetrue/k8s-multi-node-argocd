@@ -9,16 +9,16 @@ elma365-dbs:
       enabled: true
     redis:
 ## Установка redis
-      enabled: true
+      enabled: false
     valkey:
 ## Установка valkey
-      enabled: false
+      enabled: true
     rabbitmq:
 ## Установка rabbitmq
       enabled: true
     minio:
 ## Установка minio для S3 хранилища.
-      enabled: false
+      enabled: true
     elasticsearch:
 ## Установка Elasticsearch (Включается для ELMA Bot)
       enabled: false
@@ -36,7 +36,7 @@ elma365-dbs:
     primary:
       persistence:
 ## размер хранилища данных (PVC)
-        size: 30Gi
+        size: 70Gi
 ## если не определено, используется StorageClass по умолчанию
 #        storageClass: "-"
       extendedConfiguration: |
@@ -90,7 +90,7 @@ elma365-dbs:
       replicaSetKey: replicapassword
     persistence:
 ## размер хранилища данных (PVC)
-      size: 10Gi
+      size: 20Gi
 ## если не определено, используется StorageClass по умолчанию
 #      storageClass: "-"
 ## Включение контейнера инициализации, который изменяет владельца и группу точки монтирования тома на `RunAsUser:fsGroup
@@ -150,14 +150,14 @@ elma365-dbs:
     master:
       persistence:
 ## размер хранилища данных (PVC)
-        size: 5Gi
+        size: 10Gi
 ## если не определено, используется StorageClass по умолчанию
 #        storageClass: "-"
 ## Параметры конфигурации реплик
     replica:
       persistence:
 ## размер хранилища данных (PVC)
-        size: 5Gi
+        size: 10Gi
 ## если не определено, используется StorageClass по умолчанию
 #        storageClass: "-"
 ## cluster Mode - раскомментируйте следующие строки
@@ -242,18 +242,17 @@ elma365-dbs:
 ## Настройки minio (S3 хранилище)
   minio:
     auth:
-      rootUser: elma365user
-      rootPassword: SecretPassword
+      rootUser: "PZSF73JG72Ksd955JKU1HIA"
+      rootPassword: "aFDkj28Jbs2JKbnvJH678MNwiz88zKjsuNBHHs"
 ## бакет ELMA365
-    #defaultBuckets: s3elma365
+    defaultBuckets: s3elma365
 ## дополнительные бакеты включаются для ELMA365 + ELMA Bot
-    defaultBuckets: s3elma365,elmabot-omega-models,elmabot-bot-static-files,elmabot-bot-temporary-files,elmabot-analytics-report-files,elmabot-conversation-export-files
+#    defaultBuckets: s3elma365,elmabot-omega-models,elmabot-bot-static-files,elmabot-bot-temporary-files,elmabot-analytics-report-files,elmabot-conversation-export-files
     apiIngress:
 ## указать ingressClassName
       ingressClassName: ""
       extraHosts:
         - path: /s3elma365
-          name: master.elewise.local:9000
 ## включение host в ingress (необходимо указать для TLS)
 ## для приложения включите hostEnabled в файле values-elma365.yaml
 #          name: example.ru
@@ -264,7 +263,7 @@ elma365-dbs:
 #          secretName: "elma365-onpremise-tls"
     persistence:
 ## размер хранилища данных (PVC)
-      size: 30Gi
+      size: 100Gi
 ## если не определено, используется StorageClass по умолчанию
 #      storageClass: ""
 ## Включение контейнера инициализации, который изменяет владельца и группу точки монтирования тома на `RunAsUser:fsGroup
@@ -286,9 +285,9 @@ elma365-dbs:
       enabled: false
       auth:
         s3:
-          accessKey: "elma365user"
-          secretKey: "SecretPassword"
-          serviceEndpoint: "https://master.elewise.local:9000"
+          accessKey: "PZSF73JG72Ksd955JKU1HIA"
+          secretKey: "aFDkj28Jbs2JKbnvJH678MNwiz88zKjsuNBHHs"
+          serviceEndpoint: "http://example.ru:9000"
 ## адрес и секрет для приватного registry
 #    image:
 #      registry: registry.example.com
@@ -304,5 +303,4 @@ elma365-dbs:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
-          storage: 10Gi
-
+          storage: 50Gi

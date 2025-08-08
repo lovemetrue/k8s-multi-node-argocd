@@ -9,10 +9,10 @@ elma365-dbs:
       enabled: true
     redis:
 ## Установка redis
-      enabled: true
+      enabled: false
     valkey:
 ## Установка valkey
-      enabled: false
+      enabled: true
     rabbitmq:
 ## Установка rabbitmq
       enabled: true

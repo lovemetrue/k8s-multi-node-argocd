@@ -7,7 +7,7 @@ elma365:
     #   create: false
     # expMainUseOrgunitService: 'true'
 ## домен (FQDN) или ip адрес, по которому будет доступна система
-    host: 'kind.elewise.local'
+    host: 'k8s-master-n1.vps.elewise.com'
 ## выбор редакции, доступные варианты: standard, enterprise
     edition: enterprise
     ingress:
