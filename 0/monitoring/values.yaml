@@ -2,6 +2,8 @@
 kube-prometheus-stack:
   # -- Настройки grafana
   grafana:
+    nodeSelector:
+      kubernetes.io/hostname: k8s-observer
     tolerations:
     - key: "node-role.kubernetes.io/observer"
       operator: "Exists"
@@ -70,7 +72,7 @@ kube-prometheus-stack:
   prometheus:
     prometheusSpec:
       nodeSelector:
-      kubernetes.io/hostname: k8s-observer
+        kubernetes.io/hostname: k8s-observer
       tolerations:
         - key: "node-role.kubernetes.io/observer"
           operator: "Exists"
