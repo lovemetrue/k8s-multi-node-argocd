@@ -36,7 +36,7 @@ elma365-dbs:
     primary:
       persistence:
 ## размер хранилища данных (PVC)
-        size: 30Gi
+        size: 70Gi
 ## если не определено, используется StorageClass по умолчанию
 #        storageClass: "-"
       extendedConfiguration: |
@@ -253,7 +253,7 @@ elma365-dbs:
       ingressClassName: ""
       extraHosts:
         - path: /s3elma365
-          name: master.elewise.local:9000
+          name: master.sale.elewise.com:9000
 ## включение host в ingress (необходимо указать для TLS)
 ## для приложения включите hostEnabled в файле values-elma365.yaml
 #          name: example.ru

@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/LovemeTrue/ArgoCI-CD.git
+    repoURL: https://github.com/LovemeTrue/k8s-multi-node-argocd.git
     targetRevision: main
     path: ./apps
     directory:
