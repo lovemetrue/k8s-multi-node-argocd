@@ -93,15 +93,6 @@ kube-prometheus-stack:
       scrapeConfigSelectorNilUsesHelmValues: false
       scrapeInterval: 30s
       evaluationInterval: 30s
-      podMonitorNamespaceSelector:
-        matchLabels:
-          monitoring: true
-      serviceMonitorNamespaceSelector:
-        matchLabels:
-          monitoring: true
-      scrapeConfigNamespaceSelector:
-        matchLabels:
-          monitoring: true
       ## -- Как долго хранить метрики
       retention: 7d
       ## -- Максимальный размер метрик
