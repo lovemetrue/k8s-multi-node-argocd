@@ -16,7 +16,7 @@ spec:
         - pyroscope-values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: pyroscope
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
