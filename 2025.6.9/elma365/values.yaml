@@ -39,15 +39,15 @@ elma365:
     openshift: false
 ## включить дашборды для grafana
     monitoring:
-      enabled: false
+      enabled: true
       metrics:
         enabled: true
-        all: false
+        all: true
       provisioner: "k8s"
-      serviceMonitor:
-        labels: ""
-        metricRelabelings: ""
-        relabelings: ""
+      # serviceMonitor:
+      #   labels: ""
+      #   metricRelabelings: ""
+      #   relabelings: ""
       dashboard:
         enabled: true
       alerts:

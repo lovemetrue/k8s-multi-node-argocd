@@ -62,10 +62,10 @@ elma365:
         enabled: true
         all: true
       provisioner: "k8s"
-      serviceMonitor:
-        labels: ""
-        metricRelabelings: ""
-        relabelings: ""
+      # serviceMonitor:
+      #   labels: ""
+      #   metricRelabelings: ""
+      #   relabelings: ""
       dashboard:
         enabled: true
       alerts:
