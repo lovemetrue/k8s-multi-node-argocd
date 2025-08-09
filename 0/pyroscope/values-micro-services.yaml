@@ -47,11 +47,12 @@ pyroscope:
       replicaCount: 3
       terminationGracePeriodSeconds: 600
       resources:
-        limits:
-          memory: 16Gi
         requests:
-          memory: 8Gi
-          cpu: 1
+          memory: 512Mi
+          cpu: 200m
+        limits:
+          memory: 2Gi
+          cpu: 500m
     compactor:
       kind: StatefulSet
       replicaCount: 3
@@ -59,11 +60,12 @@ pyroscope:
       persistence:
         enabled: false
       resources:
-        limits:
-          memory: 16Gi
         requests:
-          memory: 8Gi
-          cpu: 1
+          memory: 512Mi
+          cpu: 200m
+        limits:
+          memory: 2Gi
+          cpu: 500m
     store-gateway:
       kind: StatefulSet
       replicaCount: 3
@@ -72,11 +74,12 @@ pyroscope:
         # This is to avoid having blocks of data being
         enabled: false
       resources:
-        limits:
-          memory: 16Gi
         requests:
-          memory: 8Gi
-          cpu: 1
+          memory: 512Mi
+          cpu: 200m
+        limits:
+          memory: 2Gi
+          cpu: 500m
       readinessProbe:
         # The store gateway can be configured to wait on startup for ring stability to be reached before it becomes
         # ready. See the `store-gateway.sharding-ring.wait-stability-min-duration` server argument for more information.
@@ -88,19 +91,21 @@ pyroscope:
       kind: Deployment
       replicaCount: 1
       resources:
-        limits:
-          memory: 4Gi
         requests:
-          memory: 16Mi
-          cpu: 0.1
+          memory: 64Mi
+          cpu: 50m
+        limits:
+          memory: 256Mi
+          cpu: 200m
     ad-hoc-profiles:
       kind: Deployment
       replicaCount: 1
       resources:
-        limits:
-          memory: 4Gi
         requests:
-          memory: 16Mi
-          cpu: 0.1
+          memory: 64Mi
+          cpu: 50m
+        limits:
+          memory: 256Mi
+          cpu: 200m
 minio:
   enabled: true

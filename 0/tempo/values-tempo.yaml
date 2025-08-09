@@ -2,6 +2,26 @@ global:
 ## Настройки provisioner (k8s, deckhouse)
   provisioner: "k8s"
 tempo:
+  affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/observer
+              operator: Exists
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 50
+        podAffinityTerm:
+          topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: loki
+
+  tolerations:
+    - key: "node-role.kubernetes.io/observer"
+      operator: "Exists"
+      effect: "NoSchedule"
   config: |
     multitenancy_enabled: false
     usage_report:
@@ -119,3 +139,23 @@ jaeger:
   #   pullPolicy: IfNotPresent
   # imagePullSecrets: 
   #   - myRegistryKeySecretName
+  affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/observer
+              operator: Exists
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 50
+        podAffinityTerm:
+          topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: jaeger
+
+  tolerations:
+    - key: "node-role.kubernetes.io/observer"
+      operator: "Exists"
+      effect: "NoSchedule"

@@ -11,26 +11,35 @@ loki:
   chunksCache:
     enabled: false
   loki:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi 
     # -- Включение аутентификации
     auth_enabled: false
     # -- Конфигурация хранилища.
     storage:
       bucketNames:
-        chunks: loki
-        ruler: loki
-        admin: loki
+        chunks: chunks
+        ruler: ruler
+        admin: admin
       type: s3
       s3:
         s3: null
         endpoint: master.sale.elewise.com:9000
         region: ru-central-1
-        secretAccessKey: elma365user
-        accessKeyId: SecretPassword
+        secretAccessKey: SecretPassword
+        accessKeyId: elma365user
         signatureVersion: null
         s3ForcePathStyle: true
         insecure: false
         # -- Использовать SSL для подключения к S3
         http_config: {}
+
+
     # -- Дополнительная конфигурация уплотнителя
     compactor:
       delete_request_store: s3
@@ -44,7 +53,7 @@ loki:
       configs:
       - from: "2025-08-08"
         index:
-          period: 12h
+          period: 24h
           prefix: index_
         object_store: s3
         schema: v13
@@ -52,7 +61,10 @@ loki:
     useTestSchema: false
     # -- Конфигурация лимитов
     limits_config:
-      retention_period: 333h #default 744h
+      max_label_name_length: 100
+      max_label_value_length: 200
+      max_streams_per_user: 1000
+      retention_period: 360h #default 744h
       per_stream_rate_limit: 512M
       per_stream_rate_limit_burst: 1024M
     commonConfig:
