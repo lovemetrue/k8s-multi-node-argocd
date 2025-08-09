@@ -189,8 +189,8 @@ elma365:
 ## настройки подключения к S3 хранилищу файлов
     s3:
       method: PUT
-      accesskeyid: PZSF73JG72Ksd955JKU1HIA
-      secretaccesskey: aFDkj28Jbs2JKbnvJH678MNwiz88zKjsuNBHHs
+      accesskeyid: elma365user
+      secretaccesskey: SecretPassword
       bucket: s3elma365
       backend:
         address: master.sale.elewise.com:9000
