@@ -44,7 +44,7 @@ loki:
     # -- Настройка схемы
     schemaConfig:
       configs:
-      - from: "2024-04-01"
+      - from: "2025-08-08"
         index:
           period: 24h
           prefix: index_

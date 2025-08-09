@@ -14,7 +14,7 @@ kube-prometheus-stack:
       enabled: true
       ingressClassName: nginx
       hosts:
-        - grafana.jesusislord.vps.elewise.com
+        - grafana.vps.elewise.com
       # -- настройка tls
       # tls: 
       #   - secretName: "mycompany-cert"
