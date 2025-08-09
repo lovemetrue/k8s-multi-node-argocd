@@ -20,10 +20,12 @@ metadata:
     {{- include "main.labels" . | nindent 4 }}
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
-    {{- if .Values.global.timeout }}
-    nginx.ingress.kubernetes.io/proxy_send_timeout: {{ .Values.global.timeout | quote }}
-    nginx.ingress.kubernetes.io/proxy_read_timeout: {{ .Values.global.timeout | quote }}
-    nginx.ingress.kubernetes.io/proxy_next_upstream_tries: "3"
+    {{- if .Values.global.ingress }}
+    {{- if .Values.global.ingress.timeoutSeconds }}
+    nginx.ingress.kubernetes.io/proxy-send-timeout: {{ .Values.global.ingress.timeoutSeconds | quote }}
+    nginx.ingress.kubernetes.io/proxy-read-timeout: {{ .Values.global.ingress.timeoutSeconds | quote }}
+    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
+    {{- end }}
     {{- end }}
     {{- with mergeOverwrite .Values.global.ingress.annotations .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}

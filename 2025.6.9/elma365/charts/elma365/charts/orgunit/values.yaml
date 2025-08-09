@@ -75,7 +75,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  service: ci-97238d92
+  service: ci-953cb538
   setup: develop
 image:
   repository: {}
@@ -102,8 +102,8 @@ orgunit:
   labels:
     app: orgunit
 annotations:
-  ci.elma365.com/commit: "98c1b5cd"
-  ci.elma365.com/checksum: "97238d92"
-  ci.elma365.com/job_id: "3276299"
-  ci.elma365.com/timestamp: "2025-05-28T10:19:57+00:00"
-  ci.elma365.com/pipeline_id: "583207"
+  ci.elma365.com/commit: "46a933f3"
+  ci.elma365.com/checksum: "953cb538"
+  ci.elma365.com/job_id: "3420439"
+  ci.elma365.com/timestamp: "2025-07-10T12:03:24+00:00"
+  ci.elma365.com/pipeline_id: "601408"

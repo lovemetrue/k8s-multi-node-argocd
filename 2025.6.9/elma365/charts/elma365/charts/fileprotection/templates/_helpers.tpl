@@ -106,6 +106,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
   {{- toJson $hosts -}}
 {{- end }}
 
+
 {{/*
 Сбор флагов для разных редакций
 */}}

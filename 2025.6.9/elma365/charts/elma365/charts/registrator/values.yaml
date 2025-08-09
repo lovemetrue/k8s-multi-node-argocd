@@ -71,7 +71,7 @@ global:
   securityContext: {}
   lifecycle: {}
 images:
-  service: ci-3c70e099
+  service: ci-a5e742b9
 image:
   repository: {}
   pullSecret: {}
@@ -93,8 +93,8 @@ registrator:
   labels:
     app: registrator
 annotations:
-  ci.elma365.com/commit: "fed543a9"
-  ci.elma365.com/checksum: "3c70e099"
-  ci.elma365.com/job_id: "3212041"
-  ci.elma365.com/timestamp: "2025-05-06T06:30:38+00:00"
-  ci.elma365.com/pipeline_id: "574548"
+  ci.elma365.com/commit: "339fc08a"
+  ci.elma365.com/checksum: "a5e742b9"
+  ci.elma365.com/job_id: "3365653"
+  ci.elma365.com/timestamp: "2025-06-16T14:10:35+04:00"
+  ci.elma365.com/pipeline_id: "594810"

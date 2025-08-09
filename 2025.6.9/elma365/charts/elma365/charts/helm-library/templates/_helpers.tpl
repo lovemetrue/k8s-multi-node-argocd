@@ -155,3 +155,23 @@ parseCPU takes 1 argument
   {{- include "parseCPU" (dict "value" $cpu) | float64 | addf 0.1 | ceil }}
 {{- end }}
 {{- end -}}
+
+{{/*
+Check if environment for worker pools is ready.
+*/}}
+{{- define "helm-library.worker-pool-enabled" }}
+{{- if .Values.global.workerPoolCfg }}
+{{- if .Values.global.workerPoolCfg.pools }}
+{{- $workerPoolConfigMapName := include "workerPoolConfigMapName" . }}
+{{- if $workerPoolConfigMapName }}
+{{- $workerPoolConfigFileDirectory := include "workerPoolConfigFileDirectory" . }}
+{{- if $workerPoolConfigFileDirectory }}
+{{- $workerPoolConfigFileName := include "workerPoolConfigFileName" . }}
+{{- if $workerPoolConfigFileName }}
+true
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

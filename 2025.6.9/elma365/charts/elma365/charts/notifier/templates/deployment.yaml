@@ -66,6 +66,8 @@ spec:
               value: {{ .Values.appconfig.observableCollectionEventsConcurrencyCount | quote }}
             - name: ELMA365_PUSH_PROTOCOL
               value: {{ .Values.appconfig.pushProtocol | quote }}
+            - name: ELMA365_NOTIGATE_ENABLED
+              value: {{ .Values.global.notifierV2 | quote }}
           {{- if .Values.global.helmLibrary }}
             {{- include "helm-library.deployment.env" . | indent 12 }}
           {{- end }}

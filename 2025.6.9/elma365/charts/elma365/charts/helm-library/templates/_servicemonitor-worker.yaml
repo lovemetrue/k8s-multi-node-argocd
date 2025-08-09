@@ -4,6 +4,7 @@
 {{- $name := required "Name should be passed" $localContext.name }}
 {{- $inputParams := .}}
 
+{{- if or (eq $dot.Values.global.edition "enterprise") (not (eq $dot.Values.global.solution "onPremise")) }}
 {{- if eq (toString $dot.Values.global.monitoring.enabled) "true" }}
 {{- if ($dot.Capabilities.APIVersions.Has "monitoring.coreos.com/v1/ServiceMonitor") }}
 apiVersion: monitoring.coreos.com/v1
@@ -99,6 +100,7 @@ spec:
   namespaceSelector:
     matchNames:
       - {{ $dot.Release.Namespace }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

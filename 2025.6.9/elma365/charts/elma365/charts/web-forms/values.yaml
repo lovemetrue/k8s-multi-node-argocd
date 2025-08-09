@@ -79,7 +79,7 @@ global:
   lifecycle: {}
 images:
   init: develop
-  service: ci-f3e11ae3
+  service: ci-21b151f8
 image:
   repository: {}
   pullSecret: {}
@@ -105,8 +105,8 @@ lifecycle: {}
 ingress:
   annotations: {}
 annotations:
-  ci.elma365.com/commit: "d2d3c787"
-  ci.elma365.com/checksum: "f3e11ae3"
-  ci.elma365.com/job_id: "3258116"
-  ci.elma365.com/timestamp: "2025-05-22T09:03:28+00:00"
-  ci.elma365.com/pipeline_id: "580779"
+  ci.elma365.com/commit: "0cffcf0a"
+  ci.elma365.com/checksum: "21b151f8"
+  ci.elma365.com/job_id: "3365895"
+  ci.elma365.com/timestamp: "2025-06-24T15:21:14+03:00"
+  ci.elma365.com/pipeline_id: "594813"

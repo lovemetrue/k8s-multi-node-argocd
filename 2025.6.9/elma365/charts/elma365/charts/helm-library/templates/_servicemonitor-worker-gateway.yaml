@@ -1,5 +1,6 @@
 {{- define "helm-library.servicemonitor-worker-gateway" }}
 {{- $name := include "gateway.name" . }}
+{{- if or (eq .Values.global.edition "enterprise") (not (eq .Values.global.solution "onPremise")) }}
 {{- if eq (toString .Values.global.monitoring.enabled) "true" }}
 {{- if ($.Capabilities.APIVersions.Has "monitoring.coreos.com/v1/ServiceMonitor") }}
 apiVersion: monitoring.coreos.com/v1
@@ -93,6 +94,7 @@ spec:
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

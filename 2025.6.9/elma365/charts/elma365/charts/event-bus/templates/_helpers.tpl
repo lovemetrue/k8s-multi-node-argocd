@@ -61,18 +61,6 @@ Create the name of the service account to use
 {{- end -}}
 {{- end -}}
 
-
-{{/*
-Service replica count
-*/}}
-{{- define "event-bus.replicaCount" -}}
-    {{- if or (kindIs "int64" .Values.replicaCount) (kindIs "float64" .Values.replicaCount) -}}
-        {{- .Values.replicaCount -}}
-    {{- else -}}
-        {{- .Values.global.replicaCount -}}
-    {{- end -}}
-{{- end -}}
-
 {{/*
 Return the target Kubernetes version
 */}}

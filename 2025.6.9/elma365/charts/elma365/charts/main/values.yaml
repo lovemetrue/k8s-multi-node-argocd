@@ -10,6 +10,7 @@ global:
   annotations: {}
   kubeVersion: ""
   ingress:
+    timeoutSeconds: 300
     indexIsnull:
       enabled: false
     onpremiseTls:
@@ -87,8 +88,8 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  setup: ci-e543fc75
-  gateway: ci-0881422b
+  setup: ci-cd9c5d0e
+  gateway: ci-4af457f1
 image:
   repository: {}
   pullSecret: {}
@@ -140,8 +141,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "d086f160"
-  ci.elma365.com/checksum: "e543fc75"
-  ci.elma365.com/job_id: "3283786"
-  ci.elma365.com/timestamp: "2025-05-29T17:12:13+04:00"
-  ci.elma365.com/pipeline_id: "584053"
+  ci.elma365.com/commit: "89b78ea6"
+  ci.elma365.com/checksum: "cd9c5d0e"
+  ci.elma365.com/job_id: "3502638"
+  ci.elma365.com/timestamp: "2025-07-31T13:52:07+04:00"
+  ci.elma365.com/pipeline_id: "610855"

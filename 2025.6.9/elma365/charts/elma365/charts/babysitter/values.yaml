@@ -76,8 +76,8 @@ global:
       name: 'elma365-babysitter-config'
   lifecycle: {}
 images:
-  service: ci-aa50fd50
-  monitor: ci-c5b2c887
+  service: ci-104410a3
+  monitor: ci-f7802a1b
 image:
   repository: {}
   pullSecret: {}
@@ -108,8 +108,8 @@ storage:
   expandTimeout: 5
   storageExpandConcurrency: 100
 annotations:
-  ci.elma365.com/commit: "f3df9d80"
-  ci.elma365.com/checksum: "aa50fd50"
-  ci.elma365.com/job_id: "3281531"
-  ci.elma365.com/timestamp: "2025-05-29T07:40:22+00:00"
-  ci.elma365.com/pipeline_id: "583800"
+  ci.elma365.com/commit: "6404217a"
+  ci.elma365.com/checksum: "104410a3"
+  ci.elma365.com/job_id: "3364998"
+  ci.elma365.com/timestamp: "2025-06-16T14:13:03+04:00"
+  ci.elma365.com/pipeline_id: "594789"

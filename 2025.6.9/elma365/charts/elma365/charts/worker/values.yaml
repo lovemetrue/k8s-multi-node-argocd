@@ -61,13 +61,10 @@ global:
   setupJobTtlSecondsAfterFinished:
   maxScriptTimeoutSeconds: 600
   defaultScriptTimeoutSeconds: 60
-  workerPoolConfigMapName: "worker-poolcfg-config-map"
-  workerPoolConfigFileDirectory: "/etc/worker/poolcfg"
-  workerPoolConfigFileName: "pool.json"
 images:
-  worker: ci-af998261
-  gateway: ci-5e2baa44
-  setup: ci-f287f928
+  worker: ci-b33dfacb
+  gateway: ci-fad92fc2
+  setup: ci-87cd7637
 image:
   repository: {}
   pullSecret: {}
@@ -146,8 +143,8 @@ networkPolicy:
     - key: app.kubernetes.io/name
       value: ingress-nginx
 annotations:
-  ci.elma365.com/commit: "572ad2ab"
-  ci.elma365.com/checksum: "af998261"
-  ci.elma365.com/job_id: "3232340"
-  ci.elma365.com/timestamp: "2025-05-14T11:03:45+00:00"
-  ci.elma365.com/pipeline_id: "577372"
+  ci.elma365.com/commit: "5937bfde"
+  ci.elma365.com/checksum: "b33dfacb"
+  ci.elma365.com/job_id: "3448650"
+  ci.elma365.com/timestamp: "2025-07-17T12:00:25+00:00"
+  ci.elma365.com/pipeline_id: "604671"

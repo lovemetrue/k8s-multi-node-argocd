@@ -11,3 +11,14 @@
 - name: GOMAXPROCS
   value: {{ include "gomaxprocs-worker-gateway" . | toString | toYaml }}
 {{- end }}
+
+{{- define "helm-library.deployment.env-worker-pool-config" }}
+{{- $enabled := include "helm-library.worker-pool-enabled" . }}
+{{- if $enabled }}
+{{- $workerPoolConfigFileDirectory := include "workerPoolConfigFileDirectory" . }}
+{{- $workerPoolConfigFileName := include "workerPoolConfigFileName" . }}
+{{ $filePath := printf "%s/%s" $workerPoolConfigFileDirectory $workerPoolConfigFileName | quote }}
+- name: ELMA365_WORKER_POOL_CONFIG_FILE_PATH
+  value: {{ $filePath }}
+{{- end }}
+{{- end }}

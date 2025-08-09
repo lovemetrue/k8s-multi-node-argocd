@@ -72,8 +72,11 @@ global:
   tolerations: []
   affinity: {}
   lifecycle: {}
+  multicluster:
+    allowExport: false
+    allowImport: false
 images:
-  service: ci-75825a89
+  service: ci-934f512f
   setup: develop
 image:
   repository: {}
@@ -112,8 +115,8 @@ appconfig:
   allowExport: false
   allowImport: false
 annotations:
-  ci.elma365.com/commit: "4ee35c18"
-  ci.elma365.com/checksum: "75825a89"
-  ci.elma365.com/job_id: "3258493"
-  ci.elma365.com/timestamp: "2025-05-22T14:23:55+04:00"
-  ci.elma365.com/pipeline_id: "580822"
+  ci.elma365.com/commit: "3d9a8694"
+  ci.elma365.com/checksum: "934f512f"
+  ci.elma365.com/job_id: "3366194"
+  ci.elma365.com/timestamp: "2025-06-16T14:11:54+04:00"
+  ci.elma365.com/pipeline_id: "594828"

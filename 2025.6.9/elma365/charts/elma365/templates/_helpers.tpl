@@ -59,3 +59,16 @@ Return the target Kubernetes version
 {{- default .Capabilities.KubeVersion.Version .Values.kubeVersion -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Variables for pool worker
+*/}}
+{{- define "workerPoolConfigMapName" -}}
+{{ .Values.global.workerPoolConfigMapName | default "worker-poolcfg-config-map" }}
+{{- end -}}
+{{- define "workerPoolConfigFileDirectory" -}}
+{{ .Values.global.workerPoolConfigFileDirectory | default "/etc/worker/poolcfg" }}
+{{- end -}}
+{{- define "workerPoolConfigFileName" -}}
+{{ .Values.global.workerPoolConfigFileName | default "pool.json" }}
+{{- end -}}

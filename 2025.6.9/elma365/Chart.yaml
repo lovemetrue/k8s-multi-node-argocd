@@ -1,10 +1,10 @@
 apiVersion: v2
-appVersion: 2025.4.6
+appVersion: 2025.6.9
 dependencies:
 - name: elma365
   repository: ""
-  version: 2025.4.6
+  version: 2025.6.9
 description: Elma365 full application chart
 name: elma365
 type: application
-version: 2025.4.6
+version: 2025.6.9

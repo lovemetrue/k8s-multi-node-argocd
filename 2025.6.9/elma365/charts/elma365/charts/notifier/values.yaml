@@ -71,9 +71,10 @@ global:
   affinity: {}
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
+  notifierV2: false
 images:
-  notifier: ci-b740cf2c
-  setup: ci-a97eab0d
+  notifier: ci-b862cd44
+  setup: ci-04bd6f72
 image:
   repository: {}
   pullSecret: {}
@@ -105,8 +106,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "a2b5d7c7"
-  ci.elma365.com/checksum: "a97eab0d"
-  ci.elma365.com/job_id: "3258140"
-  ci.elma365.com/timestamp: "2025-05-22T13:26:07+04:00"
-  ci.elma365.com/pipeline_id: "580780"
+  ci.elma365.com/commit: "c7733035"
+  ci.elma365.com/checksum: "04bd6f72"
+  ci.elma365.com/job_id: "3366066"
+  ci.elma365.com/timestamp: "2025-06-11T06:05:57+00:00"
+  ci.elma365.com/pipeline_id: "594835"

@@ -70,7 +70,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  service: ci-6edd79e3
+  service: ci-33ee6563
   setup: develop
 image:
   repository: {}
@@ -102,8 +102,8 @@ ingress:
     compLevel: 5
     minLength: 1024
 annotations:
-  ci.elma365.com/commit: "378d0f6b"
-  ci.elma365.com/checksum: "6edd79e3"
-  ci.elma365.com/job_id: "3211928"
-  ci.elma365.com/timestamp: "2025-05-06T06:30:19+00:00"
-  ci.elma365.com/pipeline_id: "574543"
+  ci.elma365.com/commit: "d074b4bd"
+  ci.elma365.com/checksum: "33ee6563"
+  ci.elma365.com/job_id: "3402262"
+  ci.elma365.com/timestamp: "2025-07-07T10:50:28+04:00"
+  ci.elma365.com/pipeline_id: "599576"

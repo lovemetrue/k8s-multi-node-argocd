@@ -21,8 +21,8 @@ global:
     annotations: {}
   skipSslVerify: true
   chart: true
-  onpremiseVersion: "2025.4.6"
-  onpremiseCommitHash: "188ffb2f950a22fad7d03163fc21171ae6b85f44"
+  onpremiseVersion: "2025.6.9"
+  onpremiseCommitHash: "19d7e9ab3247b9dc2a70e8bf9526dc63e18e5d9f"
   maxGrpcMessageSize: "8388608"
   maxGrpcBackoffDelay: 2s
   maxScriptTimeoutSeconds: 600
@@ -31,6 +31,7 @@ global:
   activeDeadlineSeconds: 3000
   curlCreateCompanyMaxTime: 1800
   curlMigrationsMaxTime: 3000
+  expEnableManagedPublicMigration: true
   backoffLimit: 10
   setupJobTtlSecondsAfterFinished: 600
   resourceLimits: false

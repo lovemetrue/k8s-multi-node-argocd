@@ -48,6 +48,7 @@ global:
       interval: 30s
   companies:
   openshift: false
+  autoGenerationJwtDisabled: false
   cronStartingDeadlineSeconds: ""
   cronTtlSecondsAfterFinished: ""
   cronActiveDeadlineSeconds: ""
@@ -81,7 +82,7 @@ global:
   lifecycle: {}
   multi: false
 images:
-  vahter: ci-54c5724d
+  vahter: ci-e2146daf
 image:
   repository: {}
   pullSecret: {}
@@ -186,8 +187,8 @@ secrets:
       CbQI9DQ6mLFx6i0J5h/753UONHu8c6N05A0ARH5S4Us=
       -----END RSA PRIVATE KEY-----
 annotations:
-  ci.elma365.com/commit: "f429886e"
-  ci.elma365.com/checksum: "54c5724d"
-  ci.elma365.com/job_id: "3282744"
-  ci.elma365.com/timestamp: "2025-05-29T14:43:40+04:00"
-  ci.elma365.com/pipeline_id: "583941"
+  ci.elma365.com/commit: "896d4483"
+  ci.elma365.com/checksum: "e2146daf"
+  ci.elma365.com/job_id: "3366028"
+  ci.elma365.com/timestamp: "2025-06-18T13:42:14+04:00"
+  ci.elma365.com/pipeline_id: "594818"

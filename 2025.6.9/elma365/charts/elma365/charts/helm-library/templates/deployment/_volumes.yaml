@@ -1,18 +1,4 @@
 {{- define "helm-library.deployment.volumeMounts" }}
-{{- $poolCfgExists := "false" }}
-{{- if .Values.global.workerPoolConfigMapName }}
-  {{- $configMap := lookup "v1" "ConfigMap" .Release.Namespace (default "" .Values.global.workerPoolConfigMapName) }}
-  {{- if $configMap }}
-    {{- $poolCfgExists = "true" }}
-  {{- end }}
-{{- end }}
-{{- if eq $poolCfgExists "true" }}
-{{ $filePath := printf "%s/%s" .Values.global.workerPoolConfigFileDirectory .Values.global.workerPoolConfigFileName | quote }}
-volumeMounts:
-  - name: worker-pool-cfg
-    mountPath: {{ $filePath }}
-    readOnly: true
-{{- end }}
 {{- if eq .Values.global.solution "onPremise" }}
 {{- if .Values.global.ingress }}
 {{- if .Values.global.ingress.onpremiseTls }}
@@ -29,19 +15,6 @@ volumeMounts:
 {{- end }}
 
 {{- define "helm-library.deployment.volumes" }}
-{{- $poolCfgExists := "false" }}
-{{- if .Values.global.workerPoolConfigMapName }}
-  {{- $configMap := lookup "v1" "ConfigMap" .Release.Namespace (default "" .Values.global.workerPoolConfigMapName) }}
-  {{- if $configMap }}
-    {{- $poolCfgExists = "true" }}
-  {{- end }}
-{{- end }}
-{{- if eq $poolCfgExists "true" }}
-volumes:
-  - name: worker-pool-cfg
-    configMap:
-      name: {{ .Values.global.workerPoolConfigMapName }}
-{{- end }}
 {{- if eq .Values.global.solution "onPremise" }}
 {{- if .Values.global.ingress }}
 {{- if .Values.global.ingress.onpremiseTls }}
@@ -203,5 +176,26 @@ volumes:
 {{- end }}
 {{- end }}
 {{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "helm-library.deployment.volumeMounts-worker-pool-config" }}
+{{- $enabled := include "helm-library.worker-pool-enabled" . }}
+{{- if $enabled }}
+{{ $mountPath := include "workerPoolConfigFileDirectory" . | quote }}
+volumeMounts:
+  - name: worker-pool-cfg
+    mountPath: {{ $mountPath }}
+    readOnly: true
+{{- end }}
+{{- end }}
+
+{{- define "helm-library.deployment.volumes-worker-pool-config" }}
+{{- $enabled := include "helm-library.worker-pool-enabled" . }}
+{{- if $enabled }}
+volumes:
+  - name: worker-pool-cfg
+    configMap:
+      name: {{ include "workerPoolConfigMapName" . }}
 {{- end }}
 {{- end }}

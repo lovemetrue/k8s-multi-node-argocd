@@ -1,8 +1,8 @@
 {{- define "helm-library.dashboard" }}
 {{- $name := include "helm-library.name" . }}
+{{- if or (eq .Values.global.edition "enterprise") (not (eq .Values.global.solution "onPremise")) }}
 {{- if eq (toString .Values.global.monitoring.enabled) "true" }}
 {{- if eq (toString .Values.global.monitoring.dashboard.enabled) "true" }}
-{{- if not ( and ( eq .Values.global.solution "onPremise") ( eq .Values.global.edition "standard") ) }}
 
 {{ $root := . }}
 {{ range $path, $_ := .Files.Glob (printf "dashboards/*-%s.json" (lower .Values.global.solution)) }}

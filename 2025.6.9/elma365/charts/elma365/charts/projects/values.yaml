@@ -71,8 +71,8 @@ projectxmlexport:
   readinessProbe: {}
   startupProbe: {}
 images:
-  service: ci-a36633ac
-  asposetasks: ci-e5ecbdf2
+  service: ci-f2d0544d
+  asposetasks: ci-32745a8e
 image:
   repository: {}
   pullSecret: {}
@@ -95,8 +95,8 @@ logging:
   default: Information
   microsoft: Warning
 annotations:
-  ci.elma365.com/commit: "7d80dda0"
-  ci.elma365.com/checksum: "a36633ac"
-  ci.elma365.com/job_id: "3298126"
-  ci.elma365.com/timestamp: "2025-06-03T06:53:08+00:00"
-  ci.elma365.com/pipeline_id: "585912"
+  ci.elma365.com/commit: "375a58ca"
+  ci.elma365.com/checksum: "f2d0544d"
+  ci.elma365.com/job_id: "3366072"
+  ci.elma365.com/timestamp: "2025-06-18T10:22:53+00:00"
+  ci.elma365.com/pipeline_id: "594837"

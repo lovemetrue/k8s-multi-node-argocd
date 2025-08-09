@@ -4,9 +4,9 @@ global:
   mongodb:
     enabled: true
   redis:
-    enabled: true
-  valkey:
     enabled: false
+  valkey:
+    enabled: true
   redis-cluster:
     enabled: false
   rabbitmq:

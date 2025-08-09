@@ -72,7 +72,7 @@ appconfig:
   clearAfterDays: 30
   cleanerRunInterval: 1
 images:
-  service: ci-aba8e6ea
+  service: ci-96825514
 image:
   repository: {}
   pullSecret: {}
@@ -97,8 +97,8 @@ ingress:
     compLevel: 5
     minLength: 1024
 annotations:
-  ci.elma365.com/commit: "35442244"
-  ci.elma365.com/checksum: "aba8e6ea"
-  ci.elma365.com/job_id: "3211879"
-  ci.elma365.com/timestamp: "2025-05-06T06:30:15+00:00"
-  ci.elma365.com/pipeline_id: "574541"
+  ci.elma365.com/commit: "f1f1cd32"
+  ci.elma365.com/checksum: "96825514"
+  ci.elma365.com/job_id: "3365075"
+  ci.elma365.com/timestamp: "2025-06-16T14:09:51+04:00"
+  ci.elma365.com/pipeline_id: "594791"

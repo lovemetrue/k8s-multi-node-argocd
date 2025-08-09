@@ -56,7 +56,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  service: ci-331f1562
+  service: ci-42f31c16
 image:
   repository: {}
   pullSecret: {}
@@ -74,8 +74,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "8bcb4090"
-  ci.elma365.com/checksum: "331f1562"
-  ci.elma365.com/job_id: "3212396"
-  ci.elma365.com/timestamp: "2025-05-06T06:32:01+00:00"
-  ci.elma365.com/pipeline_id: "574562"
+  ci.elma365.com/commit: "2816d61a"
+  ci.elma365.com/checksum: "42f31c16"
+  ci.elma365.com/job_id: "3407681"
+  ci.elma365.com/timestamp: "2025-07-08T08:30:59+00:00"
+  ci.elma365.com/pipeline_id: "600138"

@@ -87,7 +87,7 @@ appconfig:
   archiving:
     schedule: "0 */6 * * *"
 images:
-  service: ci-c4795fa0
+  service: ci-4c23a469
 image:
   repository: {}
   pullSecret: {}
@@ -110,8 +110,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "e1b7d93a"
-  ci.elma365.com/checksum: "c4795fa0"
-  ci.elma365.com/job_id: "3245937"
-  ci.elma365.com/timestamp: "2025-05-19T16:26:43+04:00"
-  ci.elma365.com/pipeline_id: "579399"
+  ci.elma365.com/commit: "7299d4ed"
+  ci.elma365.com/checksum: "4c23a469"
+  ci.elma365.com/job_id: "3365041"
+  ci.elma365.com/timestamp: "2025-06-17T09:36:56+04:00"
+  ci.elma365.com/pipeline_id: "594798"

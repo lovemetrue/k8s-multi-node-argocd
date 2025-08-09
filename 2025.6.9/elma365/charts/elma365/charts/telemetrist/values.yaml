@@ -70,8 +70,8 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  service: ci-b9c304a8
-  setup: ci-4fa0637a
+  service: ci-0cfcf6d5
+  setup: ci-81587a6d
 image:
   repository: {}
   pullSecret: {}
@@ -106,8 +106,8 @@ appconfig:
   traceCleanupInterval: 15m
   traceMetadataCacheTtl: 15m
 annotations:
-  ci.elma365.com/commit: "f392eca7"
-  ci.elma365.com/checksum: "4fa0637a"
-  ci.elma365.com/job_id: "3166531"
-  ci.elma365.com/timestamp: "2025-04-16T03:22:00+00:00"
-  ci.elma365.com/pipeline_id: "568894"
+  ci.elma365.com/commit: "0797d2f4"
+  ci.elma365.com/checksum: "81587a6d"
+  ci.elma365.com/job_id: "3365051"
+  ci.elma365.com/timestamp: "2025-06-16T05:22:20+00:00"
+  ci.elma365.com/pipeline_id: "594796"

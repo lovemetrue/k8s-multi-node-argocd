@@ -73,8 +73,8 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  diskjockey: ci-ab584afa
-  setup: ci-b09b480e
+  diskjockey: ci-66fedb2e
+  setup: ci-60797426
 image:
   repository: {}
   pullSecret: {}
@@ -97,8 +97,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "c59180d5"
-  ci.elma365.com/checksum: "b09b480e"
-  ci.elma365.com/job_id: "3296063"
-  ci.elma365.com/timestamp: "2025-06-02T12:32:10+00:00"
-  ci.elma365.com/pipeline_id: "585647"
+  ci.elma365.com/commit: "912ee26e"
+  ci.elma365.com/checksum: "60797426"
+  ci.elma365.com/job_id: "3493311"
+  ci.elma365.com/timestamp: "2025-07-30T10:46:22+00:00"
+  ci.elma365.com/pipeline_id: "609998"

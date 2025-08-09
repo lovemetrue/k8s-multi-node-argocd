@@ -66,8 +66,8 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  events: ci-b0240d23
-  setup: ci-d25a1ef8
+  events: ci-5bd24df6
+  setup: ci-afa1c18f
 image:
   repository: {}
   pullSecret: {}
@@ -88,8 +88,8 @@ lifecycle: {}
 service:
   type: ClusterIP
 annotations:
-  ci.elma365.com/commit: "4175fe1b"
-  ci.elma365.com/checksum: "d25a1ef8"
-  ci.elma365.com/job_id: "3212700"
-  ci.elma365.com/timestamp: "2025-05-06T06:33:39+00:00"
-  ci.elma365.com/pipeline_id: "574579"
+  ci.elma365.com/commit: "f1f889e3"
+  ci.elma365.com/checksum: "afa1c18f"
+  ci.elma365.com/job_id: "3365298"
+  ci.elma365.com/timestamp: "2025-06-14T17:19:32+00:00"
+  ci.elma365.com/pipeline_id: "594802"

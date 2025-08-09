@@ -16,11 +16,18 @@ data:
   ELMA365_ALLOWED_LANGUAGES: {{ default "ru-RU" ( join "," .Values.language.allowed) | quote }}
   ELMA365_DEFAULT_LANGUAGE: {{ default "ru-RU" .Values.language.default | quote }}
 
+  {{- if .Values.global.deployEnableCompanyTemplates }}
+  ELMA365_DEPLOY_ENABLE_COMPANY_TEMPLATES: {{ default "false" .Values.global.deployEnableCompanyTemplates | quote }}
+  {{- end }}
+
   # experimental
   {{- if .Values.global.expMainUseOrgunitService }}
   ELMA365_EXP_MAIN_USE_ORGUNIT_SERVICE: {{ default "false" .Values.global.expMainUseOrgunitService | quote }}
   {{- end }}
 
+  {{- if .Values.global.fieldsMergeModeEnabled }}
+  ELMA365_FIELDS_MERGE_MODE_ENABLED: {{ default "false" .Values.global.fieldsMergeModeEnabled | quote }}
+  {{- end }}
   {{- if .Values.global.mainDisableBuildPermissionsIndex }}
   ELMA365_MAIN_DISABLE_BUILD_PERMISSIONS_INDEX: {{ default "false" .Values.global.mainDisableBuildPermissionsIndex | quote }}
   {{- end }}
@@ -220,13 +227,6 @@ data:
 
   {{- if .Values.global.skipCompilationLimits }}
   ELMA365_SKIP_COMPILATION_LIMITS: {{ default "false" .Values.global.skipCompilationLimits | quote }}
-  {{- end }}
-
-  {{- if .Values.global.workerPoolConfigFileDirectory }}
-  {{- if .Values.global.workerPoolConfigFileName }}
-  {{ $filePath := printf "%s/%s" .Values.global.workerPoolConfigFileDirectory .Values.global.workerPoolConfigFileName | quote }}
-  ELMA365_WORKER_POOL_CONFIG_FILE_PATH: {{ $filePath }}
-  {{- end }}
   {{- end }}
 
   # Quota setup

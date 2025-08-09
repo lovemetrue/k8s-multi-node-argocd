@@ -15,7 +15,7 @@ metadata:
     {{- end }}
 spec:
   {{- if not .Values.global.autoscaling.enabled }}
-  replicas: {{ if or (kindIs "float64" .Values.replicaCount) (kindIs "int64" .Values.replicaCount) }}{{ .Values.replicaCount }}{{ else }}{{ .Values.global.replicaCount }}{{ end }}
+  replicas: {{ int (default .Values.global.replicaCount .Values.replicaCount) }}
   {{- end }}
   selector:
     matchLabels:
@@ -63,6 +63,7 @@ spec:
                   fieldPath: status.hostIP
           {{- if .Values.global.helmLibrary }}
             {{- include "helm-library.deployment.env" . | indent 12 }}
+            {{- include "helm-library.deployment.env-worker-pool-config" . | indent 12 }}
           {{- end }}
           envFrom:
             - configMapRef:
@@ -77,8 +78,10 @@ spec:
           {{- include "helm-library.deployment.probes" . | indent 10 }}
           {{- include "helm-library.deployment.resources" . | indent 10 }}
           {{- include "helm-library.deployment.volumeMounts" . | indent 10 }}
+          {{- include "helm-library.deployment.volumeMounts-worker-pool-config" . | indent 10 }}
           {{- include "helm-library.deployment.lifecycle" . | indent 10 }}
         {{- include "helm-library.deployment.volumes" . | indent 6 }}
+        {{- include "helm-library.deployment.volumes-worker-pool-config" . | indent 6 }}
         {{- include "helm-library.deployment.terminationgraceperiod" . | indent 6 }}
         {{- include "helm-library.deployment.scheduling" . | indent 6 }}
       {{- end }}

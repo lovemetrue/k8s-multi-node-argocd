@@ -19,9 +19,13 @@ spec:
       port: {{ .Values.global.http_port_dot }}
       targetPort: http-dot
       protocol: TCP
+{{- if or (eq .Values.global.edition "enterprise") (not (eq .Values.global.solution "onPremise")) }}
+{{- if eq (toString .Values.global.monitoring.enabled) "true" }}
     - name: http-metrics
       port: {{ .Values.global.http_metrics }}
       targetPort: http
       protocol: TCP
+{{- end }}
+{{- end }}
   selector:
     {{- include "templater.selectorLabels" . | nindent 4 }}

@@ -110,15 +110,30 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Сбор флагов для разных редакций
 */}}
 {{- define "settings.featureFlags" -}}
-    {{- if eq .Values.global.solution "onPremise" -}}
-      {{- join "," .Values.appconfig.onPremiseEnabledFeatureFlags -}}
-      {{- if gt (len .Values.appconfig.onPremiseCustomEnabledFeatureFlags) 0 -}}
-        {{- "," -}}
-        {{- join "," .Values.appconfig.onPremiseCustomEnabledFeatureFlags -}}
-      {{- end -}}
-    {{- else -}}
-      {{- join "," .Values.appconfig.saasEnabledFeatureFlags -}}
+  {{- $flags := list -}}
+
+  {{- if eq .Values.global.solution "onPremise" -}}
+    {{- if .Values.appconfig.onPremiseEnabledFeatureFlags -}}
+      {{- $flags = concat $flags (.Values.appconfig.onPremiseEnabledFeatureFlags | default list) -}}
     {{- end -}}
+    {{- if .Values.appconfig.onPremiseCustomEnabledFeatureFlags -}}
+      {{- $flags = concat $flags (.Values.appconfig.onPremiseCustomEnabledFeatureFlags | default list) -}}
+    {{- end -}}
+  {{- else -}}
+    {{- if .Values.appconfig.saasEnabledFeatureFlags -}}
+      {{- $flags = concat $flags (.Values.appconfig.saasEnabledFeatureFlags | default list) -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- if .Values.global.hubEnabled -}}
+    {{- $flags = append $flags "allowServicehub" -}}
+  {{- end -}}
+
+  {{- if $flags -}}
+    {{- join "," $flags -}}
+  {{- else -}}
+    {{- "" -}}
+  {{- end -}}
 {{- end -}}
 
 {{/*

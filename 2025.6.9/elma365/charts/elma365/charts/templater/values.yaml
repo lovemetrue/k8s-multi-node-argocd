@@ -73,8 +73,8 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  gateway: ci-d15840cc
-  setup: ci-573af6fa
+  gateway: ci-7ebcddc0
+  setup: ci-c457f7cf
 image:
   repository: {}
   pullSecret: {}
@@ -100,8 +100,8 @@ logging:
   default: Information
   microsoft: Warning
 annotations:
-  ci.elma365.com/commit: "bd4f07f0"
-  ci.elma365.com/checksum: "573af6fa"
-  ci.elma365.com/job_id: "3211903"
-  ci.elma365.com/timestamp: "2025-05-06T06:30:16+00:00"
-  ci.elma365.com/pipeline_id: "574542"
+  ci.elma365.com/commit: "df1c1a60"
+  ci.elma365.com/checksum: "c457f7cf"
+  ci.elma365.com/job_id: "3366078"
+  ci.elma365.com/timestamp: "2025-06-16T14:09:52+04:00"
+  ci.elma365.com/pipeline_id: "594836"

@@ -1,14 +1,16 @@
-{{- if .Values.global.workerPoolCfg }}
+{{- if .Values.global.helmLibrary }}
+{{- $enabled := include "helm-library.worker-pool-enabled" . }}
+{{- if $enabled }}
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.global.workerPoolConfigMapName }}
+  name: {{ include "workerPoolConfigMapName" . }}
   labels:
-    tier: elma365
-    configuration: global
+  {{- include "worker.labels" . | nindent 4 }}
 data:
-{{ .Values.global.workerPoolConfigFileName | indent 2 }}: |
+{{ include "workerPoolConfigFileName" . | indent 2 }}: |
 {{ .Values.global.workerPoolCfg | toJson | indent 4 }}
 
+{{- end }}
 {{- end }}

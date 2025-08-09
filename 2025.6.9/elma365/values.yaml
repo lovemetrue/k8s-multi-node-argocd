@@ -39,15 +39,15 @@ elma365:
     openshift: false
 ## включить дашборды для grafana
     monitoring:
-      enabled: true
+      enabled: false
       metrics:
         enabled: true
-        all: true
+        all: false
       provisioner: "k8s"
-      # serviceMonitor:
-      #   labels: ""
-      #   metricRelabelings: ""
-      #   relabelings: ""
+      serviceMonitor:
+        labels: ""
+        metricRelabelings: ""
+        relabelings: ""
       dashboard:
         enabled: true
       alerts:
@@ -167,7 +167,7 @@ elma365:
     vahterMongoUrl: 'mongodb://elma365:mongopassword@mongo.default.svc.cluster.local:27017/elma365?ssl=false&replicaSet=rs0&readPreference=secondaryPreferred'
 ## mongoUrl и vahterMongoUrl могут быть одинаковыми, коллекции внутри бд не пересекаются
 ## cтрока подключения к Redis, формат: redis://user:password@redis.local:6379/databaseName
-    redisUrl: 'redis://redis.default.svc.cluster.local:6379/0'
+    redisUrl: 'redis://valkey.default.svc.cluster.local:6379/0'
 ## cтрока подключения к Rabbit, формат amqp://user:password@hostname:5672/vhost
     amqpUrl: 'amqp://elma365:rmqpassword@rabbitmq.default.svc.cluster.local:5672/elma365'
 ##
@@ -241,7 +241,6 @@ elma365:
         - allowServerScriptsImport
         - allowImportPortalUsersForAD
         - allowImportPortalUsersForLDAP
-        - allowAuthPortalUsersWithSAML
         - allowEntityLocalization
         - enableDuplicateFTS
         - allowExternalApplicationsOIDC
@@ -255,6 +254,7 @@ elma365:
         - collector_enable_equivalentYoE
         - enableTelephonyV2
         - allowWorkCalendarsExchange
+        - enableSQLPerformanceReport
 ## флаг для включения ELMA Bot
 #        - allowLinesBots
 #    replicaCount: 1

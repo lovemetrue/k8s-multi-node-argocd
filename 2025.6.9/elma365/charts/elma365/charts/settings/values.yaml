@@ -104,7 +104,7 @@ appconfig:
     - collector_enable_equivalentYoE
   onPremiseCustomEnabledFeatureFlags: []
 images:
-  service: ci-4d92138c
+  service: ci-5dffffca
 image:
   repository: {}
   pullSecret: {}
@@ -131,8 +131,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "2f6b14ea"
-  ci.elma365.com/checksum: "4d92138c"
-  ci.elma365.com/job_id: "3258068"
-  ci.elma365.com/timestamp: "2025-05-22T08:45:31+00:00"
-  ci.elma365.com/pipeline_id: "580777"
+  ci.elma365.com/commit: "46fb61b5"
+  ci.elma365.com/checksum: "5dffffca"
+  ci.elma365.com/job_id: "3365932"
+  ci.elma365.com/timestamp: "2025-06-16T14:01:00+04:00"
+  ci.elma365.com/pipeline_id: "594820"

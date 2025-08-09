@@ -39,7 +39,10 @@ spec:
           args:
             - "/bin/sh"
             - "-ec"
-            - 'sleep 15 && curl --fail -m {{ default 3000 .Values.global.activeDeadlineSeconds }} -X PUT -H "Content-Type: application/json" http://deploy.{{ default "default" .Release.Namespace }}.svc:3000/migration/init'
+            - |
+              sleep 15 && \
+              curl --fail -m {{ default 3000 .Values.global.activeDeadlineSeconds }} -X PUT -H "Content-Type: application/json" http://deploy.{{ default "default" .Release.Namespace }}.svc:3000/migration-public/init && \
+              curl --fail -m {{ default 3000 .Values.global.activeDeadlineSeconds }} -X PUT -H "Content-Type: application/json" http://deploy.{{ default "default" .Release.Namespace }}.svc:3000/migration/init
         {{- if .Values.global.helmLibrary }}
           securityContext:
             {{- include "helm-library.jobGlobal.securityContext" . | nindent 12 }}

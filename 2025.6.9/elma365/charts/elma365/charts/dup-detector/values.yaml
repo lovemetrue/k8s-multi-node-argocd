@@ -71,7 +71,7 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  service: ci-9f6e2df8
+  service: ci-088d7e9b
   setup: develop
 image:
   repository: {}
@@ -96,8 +96,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "f1af5d1e"
-  ci.elma365.com/checksum: "9f6e2df8"
-  ci.elma365.com/job_id: "3212742"
-  ci.elma365.com/timestamp: "2025-05-06T06:33:42+00:00"
-  ci.elma365.com/pipeline_id: "574580"
+  ci.elma365.com/commit: "f3168df0"
+  ci.elma365.com/checksum: "088d7e9b"
+  ci.elma365.com/job_id: "3366091"
+  ci.elma365.com/timestamp: "2025-06-11T07:15:07+00:00"
+  ci.elma365.com/pipeline_id: "594827"

@@ -73,8 +73,8 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  service: ci-f959089e
-  setup: ci-5a02c0ed
+  service: ci-2e09668e
+  setup: ci-a0c83171
 image:
   repository: {}
   pullSecret: {}
@@ -100,8 +100,8 @@ contractor:
   labels:
     app: contractor
 annotations:
-  ci.elma365.com/commit: "cad42eb6"
-  ci.elma365.com/checksum: "5a02c0ed"
-  ci.elma365.com/job_id: "3301747"
-  ci.elma365.com/timestamp: "2025-06-03T15:20:26+03:00"
-  ci.elma365.com/pipeline_id: "586255"
+  ci.elma365.com/commit: "8e13cc27"
+  ci.elma365.com/checksum: "a0c83171"
+  ci.elma365.com/job_id: "3380551"
+  ci.elma365.com/timestamp: "2025-06-30T11:07:48+00:00"
+  ci.elma365.com/pipeline_id: "596857"

@@ -19,10 +19,14 @@ spec:
       port: {{ .Values.global.monitoring.lowcode.internalOtlpHttpPort }}
       targetPort: http-otlp
       protocol: TCP
+{{- if or (eq .Values.global.edition "enterprise") (not (eq .Values.global.solution "onPremise")) }}
+{{- if eq (toString .Values.global.monitoring.enabled) "true" }}
     - name: http-metrics
       port: {{ .Values.global.http_metrics }}
       targetPort: http
       protocol: TCP
+{{- end }}
+{{- end }}
     - name: otlp-prom
       port: {{ .Values.appconfig.lowcode.metricExportPort }}
       targetPort: otlp-prom

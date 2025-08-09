@@ -72,7 +72,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  service: ci-a7a8d3ec
+  service: ci-1f218861
 image:
   repository: {}
   pullSecret: {}
@@ -107,8 +107,8 @@ appconfig:
   lowcode:
     metricExportPort: 3300
 annotations:
-  ci.elma365.com/commit: "20c0048a"
-  ci.elma365.com/checksum: "a7a8d3ec"
-  ci.elma365.com/job_id: "3166911"
-  ci.elma365.com/timestamp: "2025-04-16T03:22:23+00:00"
-  ci.elma365.com/pipeline_id: "568910"
+  ci.elma365.com/commit: "c56114a0"
+  ci.elma365.com/checksum: "1f218861"
+  ci.elma365.com/job_id: "3365473"
+  ci.elma365.com/timestamp: "2025-06-09T16:50:02+04:00"
+  ci.elma365.com/pipeline_id: "594804"

@@ -73,8 +73,8 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished: null
 images:
-  service: ci-57d13ab7
-  setup: ci-5cf0b8b8
+  service: ci-ec193a29
+  setup: ci-96746d38
 image:
   repository: {}
   pullSecret: {}
@@ -98,8 +98,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "528d2b77"
-  ci.elma365.com/checksum: "5cf0b8b8"
-  ci.elma365.com/job_id: "3240554"
-  ci.elma365.com/timestamp: "2025-05-16T05:56:10+00:00"
-  ci.elma365.com/pipeline_id: "578249"
+  ci.elma365.com/commit: "bfe6c961"
+  ci.elma365.com/checksum: "96746d38"
+  ci.elma365.com/job_id: "3365574"
+  ci.elma365.com/timestamp: "2025-06-16T14:09:43+04:00"
+  ci.elma365.com/pipeline_id: "594807"

@@ -79,13 +79,13 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 images:
-  service: ci-918874cf
+  service: ci-d7bae6fe
 image:
   repository: {}
   pullSecret: {}
 annotations:
-  ci.elma365.com/commit: "3664532a"
-  ci.elma365.com/checksum: "918874cf"
-  ci.elma365.com/job_id: "3212248"
-  ci.elma365.com/timestamp: "2025-05-06T10:21:26+04:00"
-  ci.elma365.com/pipeline_id: "574556"
+  ci.elma365.com/commit: "3793b262"
+  ci.elma365.com/checksum: "d7bae6fe"
+  ci.elma365.com/job_id: "3365801"
+  ci.elma365.com/timestamp: "2025-06-16T13:59:34+04:00"
+  ci.elma365.com/pipeline_id: "594812"

@@ -72,7 +72,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  service: ci-1db784e5
+  service: ci-6925992c
   setup: develop
 nameOverride: indicators
 podAnnotations: {}
@@ -94,8 +94,8 @@ ingress:
     compLevel: 5
     minLength: 1024
 annotations:
-  ci.elma365.com/commit: "c971fdaf"
-  ci.elma365.com/checksum: "1db784e5"
-  ci.elma365.com/job_id: "3212625"
-  ci.elma365.com/timestamp: "2025-05-06T06:32:35+00:00"
-  ci.elma365.com/pipeline_id: "574573"
+  ci.elma365.com/commit: "ec9c19c3"
+  ci.elma365.com/checksum: "6925992c"
+  ci.elma365.com/job_id: "3474412"
+  ci.elma365.com/timestamp: "2025-07-25T12:06:11+04:00"
+  ci.elma365.com/pipeline_id: "607744"

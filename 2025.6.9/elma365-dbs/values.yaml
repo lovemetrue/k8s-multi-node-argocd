@@ -36,7 +36,7 @@ elma365-dbs:
     primary:
       persistence:
 ## размер хранилища данных (PVC)
-        size: 70Gi
+        size: 100Gi
 ## если не определено, используется StorageClass по умолчанию
 #        storageClass: "-"
       extendedConfiguration: |

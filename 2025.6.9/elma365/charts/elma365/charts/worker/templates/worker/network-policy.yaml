@@ -75,6 +75,17 @@ spec:
                 - elma365
     {{- end }}
     {{- end }}
+    {{- if .Values.global.managedServices }}
+      {{- if .Values.global.managedServices.enabled }}
+        {{- $namespace := .Values.global.managedServices.namespace }}
+        {{- if $namespace }}
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ $namespace | quote }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
     - to:
         - podSelector:
             matchLabels:

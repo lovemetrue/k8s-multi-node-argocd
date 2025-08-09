@@ -68,7 +68,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  app: ci-38674bff
+  app: ci-b2f7fe7d
 image:
   repository: {}
   pullSecret: {}
@@ -101,8 +101,8 @@ lifecycle: {}
 ingress:
   annotations: {}
 annotations:
-  ci.elma365.com/commit: "cd3ece15"
-  ci.elma365.com/checksum: "38674bff"
-  ci.elma365.com/job_id: "3307981"
-  ci.elma365.com/timestamp: "2025-06-04T13:55:57+00:00"
-  ci.elma365.com/pipeline_id: "586919"
+  ci.elma365.com/commit: "baab6271"
+  ci.elma365.com/checksum: "b2f7fe7d"
+  ci.elma365.com/job_id: "3504495"
+  ci.elma365.com/timestamp: "2025-07-31T16:54:02+04:00"
+  ci.elma365.com/pipeline_id: "611024"

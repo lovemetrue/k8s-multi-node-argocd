@@ -16,7 +16,7 @@ metadata:
     {{- end }}
 spec:
   {{- if not .Values.global.autoscaling.enabled }}
-  replicas: {{ if or (kindIs "float64" .Values.replicaCount) (kindIs "int64" .Values.replicaCount) }}{{ .Values.replicaCount }}{{ else }}{{ .Values.global.replicaCount }}{{ end }}
+  replicas: {{ int (default .Values.global.replicaCount .Values.replicaCount) }}
   {{ end }}
   selector:
     matchLabels:

@@ -78,7 +78,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  balancer: ci-a83851dc
+  balancer: ci-d5f9966a
 image:
   repository: {}
   pullSecret: {}
@@ -132,8 +132,8 @@ aws:
     region: ""
     testMode: false
 annotations:
-  ci.elma365.com/commit: "4416ad92"
-  ci.elma365.com/checksum: "a83851dc"
-  ci.elma365.com/job_id: "3258191"
-  ci.elma365.com/timestamp: "2025-05-22T13:26:40+04:00"
-  ci.elma365.com/pipeline_id: "580782"
+  ci.elma365.com/commit: "f2878706"
+  ci.elma365.com/checksum: "d5f9966a"
+  ci.elma365.com/job_id: "3365093"
+  ci.elma365.com/timestamp: "2025-06-10T04:15:30+00:00"
+  ci.elma365.com/pipeline_id: "594799"

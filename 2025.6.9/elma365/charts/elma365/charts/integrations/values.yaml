@@ -70,10 +70,11 @@ global:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  service: ci-47720dfe
-  setup: ci-612dd6e8
+  service: ci-145c6701
+  setup: ci-702620e3
 image:
   repository: {}
   pullSecret: {}
@@ -95,6 +96,7 @@ autoscaling: {}
 livenessProbe: {}
 readinessProbe: {}
 startupProbe: {}
+lifecycle: {}
 appconfig:
   availableIntegrations:
     - all
@@ -106,8 +108,8 @@ appconfig:
 rabbitmq:
   vhName: {}
 annotations:
-  ci.elma365.com/commit: "520f79c9"
-  ci.elma365.com/checksum: "612dd6e8"
-  ci.elma365.com/job_id: "3246217"
-  ci.elma365.com/timestamp: "2025-05-20T06:24:59+00:00"
-  ci.elma365.com/pipeline_id: "579431"
+  ci.elma365.com/commit: "2aca3ab9"
+  ci.elma365.com/checksum: "702620e3"
+  ci.elma365.com/job_id: "3413818"
+  ci.elma365.com/timestamp: "2025-07-09T13:04:33+00:00"
+  ci.elma365.com/pipeline_id: "600769"

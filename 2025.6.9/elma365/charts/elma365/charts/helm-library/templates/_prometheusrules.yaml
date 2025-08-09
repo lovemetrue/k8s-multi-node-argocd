@@ -1,4 +1,5 @@
 {{- define "helm-library.prometheusrules" }}
+{{- if or (eq .Values.global.edition "enterprise") (not (eq .Values.global.solution "onPremise")) }}
 {{- if eq (toString .Values.global.monitoring.enabled) "true" }}
 {{- if eq (toString .Values.global.monitoring.alerts.enabled) "true" }}
 {{- if ($.Capabilities.APIVersions.Has "monitoring.coreos.com/v1/PrometheusRule") }}
@@ -14,6 +15,7 @@ spec:
     - name: {{ template "helm-library.name" . }}
       rules: {{- toYaml .Values.metrics.prometheusRule.rules | nindent 6 }}
   {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

@@ -73,8 +73,8 @@ global:
   lifecycle: {}
   setupJobTtlSecondsAfterFinished:
 images:
-  service: ci-d931d881
-  setup: ci-ff818deb
+  service: ci-72c2e56d
+  setup: ci-615425d0
 image:
   repository: {}
   pullSecret: {}
@@ -113,8 +113,8 @@ jobs:
 appconfig:
   imapReconnectAttempts: 5
 annotations:
-  ci.elma365.com/commit: "34149b48"
-  ci.elma365.com/checksum: "ff818deb"
-  ci.elma365.com/job_id: "3212547"
-  ci.elma365.com/timestamp: "2025-05-06T06:32:26+00:00"
-  ci.elma365.com/pipeline_id: "574570"
+  ci.elma365.com/commit: "eb98b27d"
+  ci.elma365.com/checksum: "615425d0"
+  ci.elma365.com/job_id: "3364985"
+  ci.elma365.com/timestamp: "2025-06-16T14:11:50+04:00"
+  ci.elma365.com/pipeline_id: "594785"

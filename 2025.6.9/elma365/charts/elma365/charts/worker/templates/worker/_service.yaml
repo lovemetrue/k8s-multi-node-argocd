@@ -25,10 +25,14 @@ spec:
       port: {{ $dot.Values.service.http_port_wrk }}
       targetPort: http-port-wrk
       protocol: TCP
+{{- if or (eq $dot.Values.global.edition "enterprise") (not (eq $dot.Values.global.solution "onPremise")) }}
+{{- if eq (toString $dot.Values.global.monitoring.enabled) "true" }}
     - name: http-metrics
       port: {{ $dot.Values.global.http_metrics }}
       targetPort: http-port-wrk
       protocol: TCP
+{{- end }}
+{{- end }}
   selector:
     {{- include "worker.pool.selectorLabels" $inputParams | nindent 4 }}
 {{- end}}

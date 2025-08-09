@@ -18,6 +18,13 @@
 {{- $poolKey := required "PoolKey should be passed" $localContext.poolKey }}
 {{- $defaultPool := required "Default pool flag should be passed" $localContext.defaultPool }}
 {{- $queueName := required "QueueName should be passed" $localContext.queueName }}
+
+{{/* Parse options */}}
+{{- $options := $localContext.options | default dict }}
+{{- $defaultScriptTimeoutSeconds := $options.defaultScriptTimeoutSeconds | default $dot.Values.global.defaultScriptTimeoutSeconds }}
+{{- $maxScriptTimeoutSeconds := $options.maxScriptTimeoutSeconds | default $dot.Values.global.maxScriptTimeoutSeconds }}
+{{- $isCustomTimeoutAndNotDefaultPool := and $options.defaultScriptTimeoutSeconds (not $defaultPool) }}
+
 {{- $inputParams := .}}
 
 {{/*
@@ -38,7 +45,7 @@ metadata:
     {{- end }}
 spec:
   {{- if not $dot.Values.global.autoscaling.enabled }}
-  replicas: {{ if or (kindIs "float64" $dot.Values.replicaCount) (kindIs "int64" $dot.Values.replicaCount) }}{{ $dot.Values.replicaCount }}{{ else }}{{ $dot.Values.global.replicaCount }}{{ end }} # количество реплик, тут надо понять про что это
+  replicas: {{ int (default $dot.Values.global.replicaCount $dot.Values.replicaCount) }}
   {{- end }}
   selector:
     matchLabels:
@@ -51,7 +58,7 @@ spec:
         {{- include "worker.pool.selectorLabels" $inputParams | nindent 8 }}
       annotations:
         linkerd.io/inject: disabled
-        config.linkerd.io/shutdown-grace-period: {{ $dot.Values.global.maxScriptTimeoutSeconds | default 600 | quote }}
+        config.linkerd.io/shutdown-grace-period: {{ $maxScriptTimeoutSeconds | default 600 | quote }}
         {{- with $dot.Values.global.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -61,7 +68,7 @@ spec:
     spec:
       # The "terminationGracePeriodSeconds" value is set based on the maximum script execution time (ELMA365_MAX_SCRIPT_TIMEOUT_SECONDS).
       # It is important that all scripts executed at the time of service shutdown have time to complete their execution.
-      terminationGracePeriodSeconds: {{ $dot.Values.global.maxScriptTimeoutSeconds | default 600 }}
+      terminationGracePeriodSeconds: {{ $maxScriptTimeoutSeconds | default 600 }}
       {{- if $dot.Values.global.helmLibrary }}
       securityContext:
         {{- include "helm-library.podSecurityContext" $dot | nindent 8 }}
@@ -133,13 +140,17 @@ spec:
             {{- end }}
             - name: ELMA365_FETCH_SETTINGS
               value: {{ $dot.Values.fetch | toJson | quote }}
-            {{- if $dot.Values.global.maxScriptTimeoutSeconds }}
+            {{- if $maxScriptTimeoutSeconds }}
             - name: ELMA365_MAX_SCRIPT_TIMEOUT_SECONDS
-              value: {{ $dot.Values.global.maxScriptTimeoutSeconds | default 600 | quote }}
+              value: {{ $maxScriptTimeoutSeconds | default 600 | quote }}
             {{- end }}
-            {{- if $dot.Values.global.defaultScriptTimeoutSeconds }}
+            {{- if $defaultScriptTimeoutSeconds }}
             - name: ELMA365_DEFAULT_SCRIPT_TIMEOUT_SECONDS
-              value: {{ $dot.Values.global.defaultScriptTimeoutSeconds | default 60 | quote }}
+              value: {{ $defaultScriptTimeoutSeconds | default 60 | quote }}
+            {{- end }}
+            {{- if $isCustomTimeoutAndNotDefaultPool }}
+            - name: ELMA365_CUSTOM_DEFAULT_SCRIPT_TIMEOUT
+              value: "true"
             {{- end }}
             {{- if $dot.Values.appconfig.pingTimeoutMs }}
             - name: ELMA365_WORKER_FORK_PING_TIMEOUT

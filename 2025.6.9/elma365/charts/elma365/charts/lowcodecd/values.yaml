@@ -71,7 +71,7 @@ global:
   affinity: {}
   lifecycle: {}
 images:
-  service: ci-2d48e2e1
+  service: ci-adcb68c6
   setup: develop
 image:
   repository: {}
@@ -97,8 +97,8 @@ appconfig:
   profileTrialLimit: 1
   profilePaidLimit: 10
 annotations:
-  ci.elma365.com/commit: "39b1b985"
-  ci.elma365.com/checksum: "2d48e2e1"
-  ci.elma365.com/job_id: "3166716"
-  ci.elma365.com/timestamp: "2025-04-16T03:21:29+00:00"
-  ci.elma365.com/pipeline_id: "568893"
+  ci.elma365.com/commit: "722e4f59"
+  ci.elma365.com/checksum: "adcb68c6"
+  ci.elma365.com/job_id: "3366029"
+  ci.elma365.com/timestamp: "2025-06-09T16:51:21+04:00"
+  ci.elma365.com/pipeline_id: "594825"

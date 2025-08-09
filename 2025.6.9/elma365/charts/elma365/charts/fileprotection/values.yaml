@@ -101,7 +101,7 @@ appconfig:
     - allowAuthPortalUsersWithSAML
   onPremiseCustomEnabledFeatureFlags: []
 images:
-  fileprotection: ci-d9b5fbd4
+  fileprotection: ci-7298b644
 ingress:
   tls:
     secretName: ""
@@ -126,8 +126,8 @@ readinessProbe: {}
 startupProbe: {}
 lifecycle: {}
 annotations:
-  ci.elma365.com/commit: "5a142f21"
-  ci.elma365.com/checksum: "d9b5fbd4"
-  ci.elma365.com/job_id: "3258401"
-  ci.elma365.com/timestamp: "2025-05-22T14:11:48+04:00"
-  ci.elma365.com/pipeline_id: "580812"
+  ci.elma365.com/commit: "be36ca20"
+  ci.elma365.com/checksum: "7298b644"
+  ci.elma365.com/job_id: "3422518"
+  ci.elma365.com/timestamp: "2025-07-11T07:26:04+00:00"
+  ci.elma365.com/pipeline_id: "601700"
