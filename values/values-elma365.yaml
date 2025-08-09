@@ -1,15 +1,26 @@
 elma365:
   global:
-    # global:
-    # rbac:
-    #   create: true
-    # secrets:
-    #   create: false
-    # expMainUseOrgunitService: 'true'
+    nodeSelector:
+      node-role.kubernetes.io/worker: ""
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: elma365
 ## домен (FQDN) или ip адрес, по которому будет доступна система
     host: 'k8s-master-n1.vps.elewise.com'
 ## выбор редакции, доступные варианты: standard, enterprise
     edition: enterprise
+    podAnnotations:
+      profiles.grafana.com/cpu.scrape: "true" # включение профилирования CPU
+      profiles.grafana.com/cpu.port_name: http # порт для профилирования CPU
+      #profiles.grafana.com/goroutine.scrape: "true" # включение профилирования goroutine
+      #profiles.grafana.com/goroutine.port_name: http # порт для профилирования goroutine
+      profiles.grafana.com/memory.scrape: "true" # включение профилирования памяти
+      profiles.grafana.com/memory.port_name: http # порт для профилирования памяти
+
     ingress:
 ## включение host в ingress (значение берется из host)
 ## для установленного s3 minio через чарты elma365-dbs, укажите в блоке minio
@@ -17,12 +28,11 @@ elma365:
       hostEnabled: true
       onpremiseTls:
 ## включение https
-        enabled: true
-      #  enabled: true
+        enabled: false
 ## имя секрета с сертификатами для работы https
         secret: "elma365-onpremise-tls"
 ## включение сертификата корневого CA для работы https с самоподписанным сертификатом
-        enabledCA: true
+        enabledCA: false
 ## имя конфигмапы с сертификатом корневого CA для работы https с самоподписанным сертификатом
         configCA: "elma365-onpremise-ca"
       annotations:
@@ -38,7 +48,9 @@ elma365:
       defaultStorageClass: "longhorn"
 ## проверка подключения к БД
     checkdbs: true
+## контроль версий для процесса обновления
     checkversion: false
+
 ## переопределить версию Kubernetes
     kubeVersion: ""
 ## включение поддержки HAProxy Ingress для работы на платформе OpenShift
@@ -50,6 +62,10 @@ elma365:
         enabled: true
         all: true
       provisioner: "k8s"
+      # serviceMonitor:
+      #   labels: ""
+      #   metricRelabelings: ""
+      #   relabelings: ""
       dashboard:
         enabled: true
       alerts:
@@ -62,8 +78,8 @@ elma365:
 ## выбор метода автомасштабирования, доступные варианты: "hpa", "keda"
       type: "hpa"
 ## минимальное и максимальное количество реплик
-      minReplicas: 2
-      maxReplicas: 5
+      minReplicas: 1
+      maxReplicas: 9
 ## включение ресурсов
     resourceLimits: false
 ## количество попыток выполнения миграций
@@ -86,6 +102,14 @@ elma365:
 ## политики контекста безопасности
 #    podSecurityContext:
 #      runAsUser: 1001
+#    securityContext:
+#      runAsUser: 1001
+## бюджет нарушения работы подов
+#    podDisruptionBudget:
+#      enabled: true
+#      minAvailable: 1
+## правила распределения подов по топологии
+   
 ## адрес и секрет для приватного registry
 #    image:
 #      repository: registry.example.com
@@ -101,20 +125,20 @@ elma365:
       poolMaxIdleConns: 10
       poolMaxOpenConns: 150
       poolConnMaxLifetime: 5m
-      # log_statement : all
-      # session_preload_libraries : auto_explain
-      # auto_explain.log_analyze : on
-      # auto_explain.log_min_duration : 400
-      # auto_explain.log_buffers : on
-      # auto_explain.log_format : JSON
     maxGrpcMessageSize: "8388608"
     maxGrpcBackoffDelay: 2s
+## максимальное время ожидания завершения скрипта (используется в graceful-shutdown)
+    maxScriptTimeoutSeconds: 600
+## время ожидания завершения скрипта по умолчанию. Ограничено значением ELMA365_MAX_SCRIPT_TIMEOUT_SECONDS
+    defaultScriptTimeoutSeconds: 60
+## лимит памяти для локального кэша runtime-схем (в МБ)
+    runtimeSchemaCacheMemoryLimit: 100
     activeDeadlineSeconds: 3000
     curlCreateCompanyMaxTime: 1800
     curlMigrationsMaxTime: 3000
 ##
 ## включить режим отладки платформы
-  debug: true
+  debug: false
 ##
   bootstrapCompany:
 ## эл. почта администратора
@@ -150,35 +174,34 @@ elma365:
 ## строка подключения к БД Postgres только для чтения, формат: postgresql://user:password@hostname:5432/databaseName
     roPsqlUrl: ''
 ## ClusterMode - следующая строка используется для PostgreSQL в Cluster Mode
-#    roPsqlUrl: 'postgresql://postgres:pgpassword@postgres-read.default.svc.cluster.local:5432/elma365?sslmode=disable'
+#    roPsqlUrl: 'postgresql://postgres:pgpassword@postgres-read.elma365-dbs.svc.cluster.local:5432/elma365?sslmode=disable'
 ## cтрока подключения к БД MongoDB для приложения, формат: mongodb://user:password@hostname:27017/databaseName
-    mongoUrl: 'mongodb://elma365:mongopassword@mongo.elma365-dbs.svc.cluster.local:27017/elma365?ssl=false&replicaSet=rs0&readPreference=nearest'
+    mongoUrl: 'mongodb://elma365:mongopassword@mongo.elma365-dbs.svc.cluster.local:27017/elma365?ssl=false&replicaSet=rs0&readPreference=secondaryPreferred'
 ## перед восстановлением дампа скриптом elma365db.sh в mongoUrl необходимо указать пользователя с ролью root
 ## cтрока подключения к БД MongoDB для сервера авторизации, формат: mongodb://user:password@hostname:27017/databaseName
-    vahterMongoUrl: 'mongodb://elma365:mongopassword@mongo.elma365-dbs.svc.cluster.local:27017/elma365?ssl=false&replicaSet=rs0&readPreference=nearest'
+    vahterMongoUrl: 'mongodb://elma365:mongopassword@mongo.elma365-dbs.svc.cluster.local:27017/elma365?ssl=false&replicaSet=rs0&readPreference=secondaryPreferred'
 ## mongoUrl и vahterMongoUrl могут быть одинаковыми, коллекции внутри бд не пересекаются
 ## cтрока подключения к Redis, формат: redis://user:password@redis.local:6379/databaseName
     redisUrl: 'redis://valkey.elma365-dbs.svc.cluster.local:6379/0'
 ## cтрока подключения к Rabbit, формат amqp://user:password@hostname:5672/vhost
     amqpUrl: 'amqp://elma365:rmqpassword@rabbitmq.elma365-dbs.svc.cluster.local:5672/elma365'
-# amqpUrl: 'amqp://elma365user:SecretPassword@91.217.196.139:5672/elma365vhost'
 ##
 ## настройки подключения к S3 хранилищу файлов
     s3:
       method: PUT
       accesskeyid: elma365user
       secretaccesskey: SecretPassword
-      bucket: s3elma365-test
+      bucket: s3elma365
       backend:
         address: master.sale.elewise.com:9000
-        region: ru-central-1
+        region: ru-central-1  
       ssl:
         enabled: "true"
       virtualHostedStyle:
         enabled: "false"
 ## адрес S3 для резервного копирования скриптом elma365db.sh в формате, если S3 в Kubernetes-кластере
 ## http(s)://minio.<namespace>.svc.<cluster.local>, для внешнего S3 формат http(s)://example.ru:9000
-      dumpurl: "https:/master.sale.elewise.com:9000"
+      dumpurl: "https://master.sale.elewise.com:9000"
 ## включение возможности использовать внешние секреты для подключение к БД
 #    secrets: true
 ## имя секрета со строкой подключения к БД Postgres, зашифрованной в Base64 (ключ PSQL_URL)
@@ -220,47 +243,43 @@ elma365:
 #    startupProbe: {}
 ##
 ## Настройка микросервиса settings
-settings:
+  settings:
 ## включение флагов
-  appconfig:
-    onPremiseEnabledFeatureFlags:
-      - extensionEventHandling
-      - processEventHandling
-      - delegatedEventHandling
-      - appItemViewEventEnabled
-      - fileDownloadEventEnabled
-      - filePreviewEventEnabled
-      - enableModuleServices
-      - allowAttachWidgetFiles
-      - useLegacyNodeVM
-      - allowServerScriptsImport
-      - allowImportPortalUsersForAD
-      - allowImportPortalUsersForLDAP
-      - allowAuthPortalUsersWithSAML
-      - allowEntityLocalization
-      - enableDuplicateFTS
-      - enableSubscriptionOnEventsFromScript
-      - allowExternalApplicationsOIDC
-      - allowScriptImportsDependencies
-      - allowCustomActivityActionCall
-      - enableLowcodeCICD
-      - enableMarketingJourneys
-      - enableBatchOperationsApplicationItems
-      - allowMultipleWorkCalendars
-      - allowPlanFutureWorkCalendar
-      - enableEventBusDynamicFiltration
-      - enableLowcodeTracing
-      - allowElmaBotXTokenAuth
-      - enableSQLPerformanceReport
+    appconfig:
+      onPremiseEnabledFeatureFlags:
+        - delegatedEventHandling
+        - appItemViewEventEnabled
+        - fileDownloadEventEnabled
+        - filePreviewEventEnabled
+        - enableModuleServices
+        - allowAttachWidgetFiles
+        - allowServerScriptsImport
+        - allowImportPortalUsersForAD
+        - allowImportPortalUsersForLDAP
+        - allowEntityLocalization
+        - enableDuplicateFTS
+        - allowExternalApplicationsOIDC
+        - allowScriptImportsDependencies
+        - allowCustomActivityActionCall
+        - enableMarketingJourneys
+        - allowMultipleWorkCalendars
+        - allowPlanFutureWorkCalendar
+        - enableEventBusDynamicFiltration
+        - enableLowcodeTracing
+        - collector_enable_equivalentYoE
+        - enableTelephonyV2
+        - allowWorkCalendarsExchange
+        - enableSQLPerformanceReport
+        - enableBatchOperationsApplicationItems
 ## флаг для включения ELMA Bot
-      - allowLinesBots
-      - allowElmaBotLicensing
-#  replicaCount: 1
-#  resources: {}
-#  autoscaling: {}
-#  livenessProbe: {}
-#  readinessProbe: {}
-#  startupProbe: {}
+#        - allowLinesBots
+#    replicaCount: 1
+#    resources: {}
+#    autoscaling: {}
+#    livenessProbe: {}
+#    readinessProbe: {}
+#    startupProbe: {}
+##
 ## Настройка микросервиса hydra-adaptor
   hydra-adaptor:
 # настройка для ELMA Bot
@@ -288,7 +307,7 @@ settings:
 #    autoscaling: {}
 #    livenessProbe: {}
 #    readinessProbe: {}
-#    startupProbe: {} 
+#    startupProbe: {}
 ##
 ## Настройка микросервиса aspose-actions
 #  aspose-actions:
@@ -299,39 +318,6 @@ settings:
 #    readinessProbe: {}
 #    startupProbe: {}
 ##
-# image: {}
-# images: {}
-  # image:
-
-  #   pullSecret: []
- # Очистка микросервисов с задвоением image:
-# deploy:
-#   image: {}
-#   images:
-#     service: ""
-#     dumper: ""
-
-# messenger-vkteamsbot:
-#   image: {}
-#   images:
-#     service: ""
-
-# babysitter:
-#   image: {}
-#   images:
-#     service: ""
-
-# billing:
-#   image: {}
-#   images:
-#     service: ""
-#     setup: ""
-
-# # На всякий случай: curl и maintenance
-# maintenance:
-#   image: {}
-# curl:
-#   image: {}
 ## Настройка микросервиса auth
 #  auth:
 #    replicaCount: 1
