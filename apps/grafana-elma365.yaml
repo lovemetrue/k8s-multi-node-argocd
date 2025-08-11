@@ -26,4 +26,4 @@ spec:
       # - CreateNamespace=true
       # - Replace=true
       # - ApplyOutOfSyncOnly=true
-      # - PruneLast=true
+      - PruneLast=true
