@@ -20,6 +20,7 @@ spec:
             - -c
             - |
               echo "=== 🧹 Cleaning up Grafana / Prometheus stack ==="
+              kubectl patch applications.argoproj.io/grafana -n argocd --type=merge -p '{"metadata":{"finalizers":[]}}'
 
               echo "--- Deleting RBAC ---"
               kubectl delete clusterrole grafana-kube-prometheus-st-admission --ignore-not-found
@@ -46,5 +47,4 @@ spec:
 
               echo "--- Deleting leftover Deployments ---"
               kubectl delete deployment -n monitoring -l release=grafana-kube-prometheus-st --ignore-not-found
-
               echo "✅ Cleanup complete."
