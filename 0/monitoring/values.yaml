@@ -115,8 +115,6 @@ kube-prometheus-stack:
   # Настройки promethus-node-exporter
   prometheus-node-exporter:
     # node selector + tolerations
-    nodeSelector:
-      node-role.kubernetes.io/observer: ""
     tolerations:
       - key: "node-role.kubernetes.io/observer"
         operator: "Exists"
