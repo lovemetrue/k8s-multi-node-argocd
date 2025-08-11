@@ -71,9 +71,9 @@ elma365:
       dashboard:
         enabled: true
       alerts:
-        enabled: true
+        enabled: false
       lowcode:
-        metricExportEnabled: false # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
+        metricExportEnabled: true # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
 ## автомасштабирование сервисов
     autoscaling:
       enabled: false
