@@ -2,15 +2,14 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: cleanup-grafana-monitoring
-  namespace: monitoring
+  namespace: argocd
   labels:
-    app.kubernetes.io/name: cleanup-grafana-monitoring
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   template:
     spec:
-      serviceAccountName: default
+      serviceAccountName: argocd-admin
       restartPolicy: Never
       containers:
         - name: cleanup
@@ -19,8 +18,8 @@ spec:
             - /bin/sh
             - -c
             - |
+              set -e
               echo "=== 🧹 Cleaning up Grafana / Prometheus stack ==="
-              kubectl patch applications.argoproj.io/grafana -n argocd --type=merge -p '{"metadata":{"finalizers":[]}}'
 
               echo "--- Deleting RBAC ---"
               kubectl delete clusterrole grafana-kube-prometheus-st-admission --ignore-not-found
@@ -29,15 +28,18 @@ spec:
               kubectl delete rolebinding -A grafana-kube-prometheus-st-admission --ignore-not-found
 
               echo "--- Deleting CRDs ---"
-              kubectl delete crd alertmanagers.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd prometheuses.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd prometheusagents.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd thanosrulers.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd scrapeconfigs.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd alertmanagerconfigs.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd podmonitors.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd servicemonitors.monitoring.coreos.com --ignore-not-found
-              kubectl delete crd probes.monitoring.coreos.com --ignore-not-found
+              for crd in \
+                alertmanagers.monitoring.coreos.com \
+                prometheuses.monitoring.coreos.com \
+                prometheusagents.monitoring.coreos.com \
+                thanosrulers.monitoring.coreos.com \
+                scrapeconfigs.monitoring.coreos.com \
+                alertmanagerconfigs.monitoring.coreos.com \
+                podmonitors.monitoring.coreos.com \
+                servicemonitors.monitoring.coreos.com \
+                probes.monitoring.coreos.com; do
+                  kubectl delete crd $crd --ignore-not-found
+              done
 
               echo "--- Deleting StatefulSets ---"
               kubectl delete statefulset -n monitoring -l release=grafana-kube-prometheus-st --ignore-not-found
@@ -47,4 +49,8 @@ spec:
 
               echo "--- Deleting leftover Deployments ---"
               kubectl delete deployment -n monitoring -l release=grafana-kube-prometheus-st --ignore-not-found
+
+              echo "--- Removing finalizers from Application ---"
+              kubectl patch applications.argoproj.io/grafana -n argocd --type=merge -p '{"metadata":{"finalizers":[]}}' || true
+
               echo "✅ Cleanup complete."
