@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cleanup-grafana-monitoring
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: cleanup-grafana-monitoring
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      serviceAccountName: default
+      restartPolicy: Never
+      containers:
+        - name: cleanup
+          image: bitnami/kubectl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "=== 🧹 Cleaning up Grafana / Prometheus stack ==="
+
+              echo "--- Deleting RBAC ---"
+              kubectl delete clusterrole grafana-kube-prometheus-st-admission --ignore-not-found
+              kubectl delete clusterrolebinding grafana-kube-prometheus-st-admission --ignore-not-found
+              kubectl delete role -A grafana-kube-prometheus-st-admission --ignore-not-found
+              kubectl delete rolebinding -A grafana-kube-prometheus-st-admission --ignore-not-found
+
+              echo "--- Deleting CRDs ---"
+              kubectl delete crd alertmanagers.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd prometheuses.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd prometheusagents.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd thanosrulers.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd scrapeconfigs.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd alertmanagerconfigs.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd podmonitors.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd servicemonitors.monitoring.coreos.com --ignore-not-found
+              kubectl delete crd probes.monitoring.coreos.com --ignore-not-found
+
+              echo "--- Deleting StatefulSets ---"
+              kubectl delete statefulset -n monitoring -l release=grafana-kube-prometheus-st --ignore-not-found
+
+              echo "--- Deleting DaemonSets ---"
+              kubectl delete daemonset -n monitoring -l release=grafana-kube-prometheus-st --ignore-not-found
+
+              echo "--- Deleting leftover Deployments ---"
+              kubectl delete deployment -n monitoring -l release=grafana-kube-prometheus-st --ignore-not-found
+
+              echo "✅ Cleanup complete."
