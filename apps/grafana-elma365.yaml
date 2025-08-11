@@ -4,7 +4,7 @@ metadata:
   name: grafana
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   source:
@@ -23,4 +23,7 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
-      
+      - CreateNamespace=true
+      - Replace=true
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
