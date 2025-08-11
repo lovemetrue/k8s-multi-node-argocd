@@ -23,7 +23,7 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
-      - CreateNamespace=true
-      - Replace=true
-      - ApplyOutOfSyncOnly=true
-      - PruneLast=true
+      # - CreateNamespace=true
+      # - Replace=true
+      # - ApplyOutOfSyncOnly=true
+      # - PruneLast=true
