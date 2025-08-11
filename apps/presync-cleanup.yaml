@@ -9,7 +9,7 @@ metadata:
 spec:
   template:
     spec:
-      serviceAccountName: argocd-admin
+      serviceAccountName: argocd-server
       restartPolicy: Never
       containers:
         - name: cleanup
