@@ -1,7 +1,7 @@
 elma365:
   global:
-    maintenanceInfo: true
-    maintenanceMode: true
+    # maintenanceInfo: true
+    # maintenanceMode: true
     nodeSelector:
       node-role.kubernetes.io/worker: ""
     topologySpreadConstraints:
