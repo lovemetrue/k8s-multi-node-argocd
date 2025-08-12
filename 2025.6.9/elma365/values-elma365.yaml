@@ -1,7 +1,7 @@
 elma365:
   global:
-    maintenanceInfo: false
-    maintenanceMode: false
+    maintenanceInfo: true
+    maintenanceMode: true
     nodeSelector:
       node-role.kubernetes.io/worker: ""
     topologySpreadConstraints:
@@ -73,7 +73,7 @@ elma365:
       alerts:
         enabled: false
       lowcode:
-        metricExportEnabled: true # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
+        metricExportEnabled: false # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
 ## автомасштабирование сервисов
     autoscaling:
       enabled: false
