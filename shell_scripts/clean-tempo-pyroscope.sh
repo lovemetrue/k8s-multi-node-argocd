@@ -22,6 +22,15 @@ safe_delete pvc -n "$NAMESPACE" -l app.kubernetes.io/name=tempo
 safe_delete sa -n "$NAMESPACE" -l app.kubernetes.io/name=tempo
 safe_delete role,rolebinding -n "$NAMESPACE" -l app.kubernetes.io/name=tempo
 
+# Удаляем ресурсы Loki.
+safe_delete all -n "$NAMESPACE" -l app.kubernetes.io/name=loki
+safe_delete statefulset -n "$NAMESPACE" -l app.kubernetes.io/name=loki
+safe_delete daemonset -n "$NAMESPACE" -l app.kubernetes.io/name=loki
+safe_delete configmap -n "$NAMESPACE" -l app.kubernetes.io/name=loki
+safe_delete secret -n "$NAMESPACE" -l app.kubernetes.io/name=loki
+safe_delete pvc -n "$NAMESPACE" -l app.kubernetes.io/name=loki
+safe_delete sa -n "$NAMESPACE" -l app.kubernetes.io/name=loki
+safe_delete role,rolebinding -n "$NAMESPACE" -l app.kubernetes.io/name=loki     
 # 2. Удаляем CRD Tempo
 echo "🧹 Удаляем CRD Tempo..."
 kubectl get crd | grep tempo | awk '{print $1}' | xargs -r kubectl delete crd --ignore-not-found || true

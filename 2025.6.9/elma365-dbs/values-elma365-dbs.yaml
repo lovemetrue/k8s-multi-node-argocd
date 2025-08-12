@@ -288,7 +288,7 @@ elma365-dbs:
         s3:
           accessKey: "elma365user"
           secretKey: "SecretPassword"
-          serviceEndpoint: "https://master.elewise.local:9000"
+          serviceEndpoint: "https://master.sale.elewise.com:9000"
 ## адрес и секрет для приватного registry
 #    image:
 #      registry: registry.example.com
