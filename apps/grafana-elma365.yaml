@@ -17,11 +17,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-  dependsOn:
-  - kube-prometheus-crds
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
+      - Force=true
+      - Replace=true
