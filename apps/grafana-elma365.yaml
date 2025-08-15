@@ -4,11 +4,7 @@ metadata:
   name: grafana
   namespace: argocd
   annotations:
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/hook-delete-policy: HookFailed
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-    # Принудительное обновление секретов
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-wave: "-1"
 
 spec:
   project: default
@@ -29,27 +25,4 @@ spec:
     syncOptions:
       - Replace=true
       - ServerSideApply=true
-      - ApplyOutOfSyncOnly=true
       - CreateNamespace=true
-
-    retry:
-    limit: 5
-    backoff:
-      duration: 5s
-      factor: 2
-      maxDuration: 3m
-        
-  ignoreDifferences:
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRole
-      jsonPointers:
-        - /metadata/annotations
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRoleBinding
-      jsonPointers:
-        - /metadata/annotations
-    - group: batch
-      kind: Job
-      name: grafana-kube-prometheus-st-admission-create
-      jqPathExpressions:
-        - '.status'
