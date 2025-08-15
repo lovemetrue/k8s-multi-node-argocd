@@ -2,9 +2,6 @@
 kube-prometheus-stack:
   # -- Настройки grafana
   grafana:
-    admissionWebhooks:
-      patch:
-        enabled: false
     nodeSelector:
       node-role.kubernetes.io/observer: ""
     tolerations:
@@ -114,10 +111,7 @@ kube-prometheus-stack:
       enabled: false
     kubeControllerManager:
       enabled: false
-
-  admissionWebhooks:
-    patch:
-      enabled: false
+  
   # Настройки promethus-node-exporter
   prometheus-node-exporter:
     # node selector + tolerations
