@@ -3,11 +3,8 @@ kube-prometheus-stack:
   # -- Настройки grafana
   grafana:
     admissionWebhooks:
-    patch:
-      enabled: true
-      annotations:
-        argocd.argoproj.io/hook: PreSync
-        argocd.argoproj.io/hook-delete-policy: HookSucceeded
+      patch:
+        enabled: false
     nodeSelector:
       node-role.kubernetes.io/observer: ""
     tolerations:
@@ -119,10 +116,8 @@ kube-prometheus-stack:
       enabled: false
 
   admissionWebhooks:
+    patch:
       enabled: false
-      patch:
-        rbac:
-          create: true
   # Настройки promethus-node-exporter
   prometheus-node-exporter:
     # node selector + tolerations
