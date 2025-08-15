@@ -4,7 +4,7 @@ metadata:
   name: grafana
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   source:
@@ -17,6 +17,8 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
+  dependsOn:
+  - kube-prometheus-crds
   syncPolicy:
     automated:
       prune: true

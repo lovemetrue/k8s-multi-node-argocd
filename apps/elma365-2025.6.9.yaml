@@ -25,6 +25,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: elma365
+    
   syncPolicy:
     automated:
       prune: true
