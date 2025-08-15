@@ -112,12 +112,12 @@ kube-prometheus-stack:
       enabled: false
     kubeControllerManager:
       enabled: false
-      
+
   admissionWebhooks:
-      enabled: true
+      enabled: false
       patch:
         rbac:
-          create: false
+          create: true
   # Настройки promethus-node-exporter
   prometheus-node-exporter:
     # node selector + tolerations
