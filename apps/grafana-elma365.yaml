@@ -9,8 +9,6 @@ spec:
     repoURL: https://github.com/LovemeTrue/k8s-multi-node-argocd.git
     targetRevision: main
     path: 0/monitoring
-    directory:
-     recurse: true
     helm:
       valueFiles:
         - values.yaml
