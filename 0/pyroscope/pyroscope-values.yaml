@@ -31,8 +31,3 @@ pyroscope:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: pyroscope
-  
-  tolerations:
-    - key: "node-role.kubernetes.io/observer"
-      operator: "Exists"
-      effect: "NoSchedule"

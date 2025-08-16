@@ -2,6 +2,9 @@ global:
 ## Настройки provisioner (k8s, deckhouse)
   provisioner: "k8s"
 tempo:
+  metricsGenerator:
+    enabled: true
+    remoteWriteUrl: "http://prometheus-operated.monitoring.svc:9090/api/v1/write"
   resources:
   requests:
     memory: 2Gi
@@ -57,11 +60,13 @@ tempo:
     metrics_generator:
       registry:
         collection_interval: 15s
+        external_labels:
+          source: tempo
       ring:
         kvstore:
           store: memberlist
       storage:
-        path: /tmp/tempo
+        path: /var/tempo/wal/metrics
       
     storage:
       trace:
@@ -79,10 +84,10 @@ tempo:
       search:
         duration_slo: 5s
 
-    # overrides:
-    #   metrics_generator_processors: ['local-blocks']
-      #  - service-graphs
-      #  - span-metrics
+    overrides:
+      metrics_generator_processors:
+       - service-graphs
+       - span-metrics
 
     
   tempo:
