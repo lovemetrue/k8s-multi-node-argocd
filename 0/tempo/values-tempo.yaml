@@ -59,14 +59,14 @@ tempo:
       http_listen_port: 3100
       grpc_listen_port: 9095
 
-    metrics_generator:
-      registry:
-        collection_interval: 15s
-      ring:
-        kvstore:
-          store: memberlist
-      storage:
-        path: /tmp/tempo
+    # metrics_generator:
+    #   registry:
+    #     collection_interval: 15s
+    #   ring:
+    #     kvstore:
+    #       store: memberlist
+    #   storage:
+    #     path: /tmp/tempo
       
     storage:
       trace:
@@ -84,8 +84,8 @@ tempo:
       search:
         duration_slo: 5s
 
-    overrides:
-      metrics_generator_processors: ['local-blocks']
+    # overrides:
+    #   metrics_generator_processors: ['local-blocks']
       #  - service-graphs
       #  - span-metrics
 
