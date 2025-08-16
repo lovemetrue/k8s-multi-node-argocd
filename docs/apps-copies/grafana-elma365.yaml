@@ -4,7 +4,9 @@ metadata:
   name: grafana
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj,io/sync-wave: "-1"
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+
 spec:
   project: default
   source:
@@ -22,8 +24,5 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
+      - CreateNamespace=true
       - ServerSideApply=true
-      # - CreateNamespace=true
-      # - Replace=true
-      # - ApplyOutOfSyncOnly=true
-      - PruneLast=true
