@@ -1,9 +1,5 @@
 # -- Настройки monitoring
 kube-prometheus-stack:
-  admissionWebhooks:
-      patch:
-        rbac:
-          create: false
   # -- Настройки grafana
   grafana:
     
