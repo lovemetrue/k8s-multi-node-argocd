@@ -1,11 +1,12 @@
 # -- Настройки monitoring
 kube-prometheus-stack:
-  # -- Настройки grafana
-  grafana:
-    admissionWebhooks:
+  admissionWebhooks:
       patch:
         rbac:
           create: false
+  # -- Настройки grafana
+  grafana:
+    
     nodeSelector:
       node-role.kubernetes.io/observer: ""
     tolerations:
