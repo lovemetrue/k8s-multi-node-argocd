@@ -106,6 +106,8 @@ kube-prometheus-stack:
     imageRegistry: "hub.elma365.tech/docker/addons"
     imagePullSecrets: []
 
+  alertmanager:
+    enabled: false
   # -- Настройки exporter
   exporters:
     kubeScheduler:

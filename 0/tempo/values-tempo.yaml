@@ -2,6 +2,12 @@ global:
 ## Настройки provisioner (k8s, deckhouse)
   provisioner: "k8s"
 tempo:
+  resources:
+  requests:
+    memory: 2Gi
+    cpu: "500m"
+  limits:
+    memory: 4Gi
   affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
@@ -47,6 +53,7 @@ tempo:
             store: inmemory
       trace_idle_period: 10s
       max_block_duration: 5m
+      max_block_bytes: 16777216
   
     server:
       http_listen_port: 3100
@@ -154,8 +161,3 @@ jaeger:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: jaeger
-
-  tolerations:
-    - key: "node-role.kubernetes.io/observer"
-      operator: "Exists"
-      effect: "NoSchedule"
