@@ -23,11 +23,6 @@ tempo:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: loki
-
-  tolerations:
-    - key: "node-role.kubernetes.io/observer"
-      operator: "Exists"
-      effect: "NoSchedule"
   config: |
     multitenancy_enabled: false
     usage_report:
@@ -59,14 +54,14 @@ tempo:
       http_listen_port: 3100
       grpc_listen_port: 9095
 
-    # metrics_generator:
-    #   registry:
-    #     collection_interval: 15s
-    #   ring:
-    #     kvstore:
-    #       store: memberlist
-    #   storage:
-    #     path: /tmp/tempo
+    metrics_generator:
+      registry:
+        collection_interval: 15s
+      ring:
+        kvstore:
+          store: memberlist
+      storage:
+        path: /tmp/tempo
       
     storage:
       trace:
