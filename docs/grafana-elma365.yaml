@@ -5,7 +5,6 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
-
 spec:
   project: default
   source:
@@ -22,5 +21,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    # syncOptions:
-    #   - ServerSideApply=true
+    syncOptions:
+      - ServerSideApply=true
+      - Force=true
+      - Replace=true
