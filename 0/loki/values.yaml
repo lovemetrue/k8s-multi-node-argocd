@@ -13,11 +13,11 @@ loki:
   loki:
     resources:
       requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
         cpu: 500m
-        memory: 512Mi 
+        memory: 512Mi
+      limits:
+        cpu: 650m
+        memory: 900Mi 
     # -- Включение аутентификации
     auth_enabled: false
     # -- Конфигурация хранилища.
@@ -61,8 +61,8 @@ loki:
     useTestSchema: false
     # -- Конфигурация лимитов
     limits_config:
-      max_label_name_length: 100
-      max_label_value_length: 200
+      max_label_name_length: 350
+      max_label_value_length: 650   
       max_streams_per_user: 1000
       retention_period: 360h #default 744h
       per_stream_rate_limit: 512M
