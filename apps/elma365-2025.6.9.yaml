@@ -16,7 +16,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/LovemeTrue/k8s-multi-node-argocd.git
+    repoURL: https://github.com/lovemetrue/k8s-multi-node-argocd.git
     targetRevision: main
     path: 2025.6.9/elma365
     helm:
