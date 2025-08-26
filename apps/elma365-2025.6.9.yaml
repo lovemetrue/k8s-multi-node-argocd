@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
     argocd.argoproj.io/depends-on: "[elma365-dbs]"
     # Автоматическое пропускание зависших хуков
-    # argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
     argocd.argoproj.io/hook-delete-policy: HookFailed
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
@@ -33,4 +33,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
-      - ServerSideApply=true  # Важно для секретов!
+      #- ServerSideApply=true  # Важно для секретов!
