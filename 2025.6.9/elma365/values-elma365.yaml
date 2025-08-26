@@ -1,5 +1,9 @@
 elma365:
   global:
+    script:
+      compileTtl: 2m
+      executeTtl: 2m
+      queueTtl: 2m
     maintenanceInfo: false
     maintenanceMode: false
     nodeSelector:
