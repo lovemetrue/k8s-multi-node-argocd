@@ -33,4 +33,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
-      #- ServerSideApply=true  # Важно для секретов!
+      - ServerSideApply=true  # Важно для секретов!
