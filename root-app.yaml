@@ -20,5 +20,3 @@ spec:
       prune: true
     syncOptions:
       - ApplyOutOfSyncOnly=true
-      - Replace=true
-      - ServerSideApply=true
