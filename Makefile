@@ -1,6 +1,6 @@
 # === config ===
 DBS_MSG ?= обновление параметров БД
-REPO_URL = https://github.com/LovemeTrue/k8s-multi-node-argocd.git
+REPO_URL = https://github.com/lovemetrue/k8s-multi-node-argocd.git
 
 # === targets ===
 
