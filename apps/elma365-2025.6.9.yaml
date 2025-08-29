@@ -8,7 +8,9 @@ metadata:
     argocd.argoproj.io/depends-on: "[elma365-dbs]"
     # Автоматическое пропускание зависших хуков
     #argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-   
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/hook-delete-policy: HookFailed
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
     argocd.argoproj.io/tracking-method: annotation
     
     # Укажите, что это Helm-приложение
