@@ -42,7 +42,7 @@ spec:
       - ServerSideApply=true
        # Заменяем ресурс вместо попытки мержить изменения
       - Replace=true
-      #- RespectIgnoreDifferences=true
+      - RespectIgnoreDifferences=true
       #- ServerSideApply=true  # Важно для секретов!\
     ignoreDifferences:
       - group: batch
