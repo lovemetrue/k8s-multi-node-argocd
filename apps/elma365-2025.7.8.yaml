@@ -33,6 +33,7 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
+      prune: true
     syncOptions:
       - CreateNamespace=true
       - IgnoreApplicationNotFound=true

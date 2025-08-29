@@ -59,7 +59,7 @@ elma365:
 ## storageclass для переносимых сервисов
       defaultStorageClass: "longhorn"
 ## проверка подключения к БД
-    checkdbs: true
+    checkdbs: false
 ## контроль версий для процесса обновления
     checkversion: false
 
