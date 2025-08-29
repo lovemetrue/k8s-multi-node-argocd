@@ -20,18 +20,18 @@ elma365:
 ## выбор редакции, доступные варианты: standard, enterprise
     edition: enterprise
     podAnnotations:
-      argocd.argoproj.io/hook-delete-policy: HookSucceeded
-      argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+      # argocd.argoproj.io/hook-delete-policy: HookSucceeded
+      # argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
       profiles.grafana.com/cpu.scrape: "true" # включение профилирования CPU
       profiles.grafana.com/cpu.port_name: http # порт для профилирования CPU
-      #profiles.grafana.com/goroutine.scrape: "true" # включение профилирования goroutine
-      #profiles.grafana.com/goroutine.port_name: http # порт для профилирования goroutine
+      profiles.grafana.com/goroutine.scrape: "true" # включение профилирования goroutine
+      profiles.grafana.com/goroutine.port_name: http # порт для профилирования goroutine
       profiles.grafana.com/memory.scrape: "true" # включение профилирования памяти
       profiles.grafana.com/memory.port_name: http # порт для профилирования памяти
-    jobAnnotations:
-      argocd.argoproj.io/hook: PreSync
-      argocd.argoproj.io/sync-wave: "-4"
-      argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    # jobAnnotations:
+    #   argocd.argoproj.io/hook: PreSync
+    #   argocd.argoproj.io/sync-wave: "-4"
+    #   argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 
     ingress:
 ## включение host в ingress (значение берется из host)
