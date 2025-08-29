@@ -4,8 +4,8 @@ elma365:
       compileTtl: 2m
       executeTtl: 2m
       queueTtl: 2m
-    maintenanceInfo: false
-    maintenanceMode: false
+    maintenanceInfo: true
+    maintenanceMode: true
     nodeSelector:
       node-role.kubernetes.io/worker: ""
     topologySpreadConstraints:
