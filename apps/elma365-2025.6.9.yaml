@@ -10,7 +10,7 @@ metadata:
     #argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    #argocd.argoproj.io/hook-delete-policy: HookFailed
+    argocd.argoproj.io/hook-delete-policy: HookFailed
     #argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
     argocd.argoproj.io/tracking-method: annotation
     
@@ -41,7 +41,7 @@ spec:
       # Важно: используем ServerSideApply для правильной обработки аннотаций
       - ServerSideApply=true
        # Заменяем ресурс вместо попытки мержить изменения
-      - Replace=true
+      # - Replace=true
       - RespectIgnoreDifferences=true
       #- ServerSideApply=true  # Важно для секретов!\
     ignoreDifferences:
