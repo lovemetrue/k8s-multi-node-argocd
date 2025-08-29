@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: elma365-2025.7.8
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/depends-on: "[elma365-dbs]"
+    # # Автоматическое пропускание зависших хуков
+    # #argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    # argocd.argoproj.io/hook-delete-policy: HookFailed
+    # argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    # argocd.argoproj.io/tracking-method: annotation
+    
+    # # Укажите, что это Helm-приложение
+    # argocd.argoproj.io/instance: elma365-2025.6.9
+    # Принудительное обновление секретов
+    #argocd.argoproj.io/compare-options: IgnoreExtraneous
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/lovemetrue/k8s-multi-node-argocd.git
+    targetRevision: main
+    path: 2025.7.8/elma365
+    helm:
+      valueFiles:
+        - values-elma365.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: elma365
+    
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - IgnoreApplicationNotFound=true
+      #- RespectIgnoreDifferences=true
+      #- ServerSideApply=true  # Важно для секретов!
