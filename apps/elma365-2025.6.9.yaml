@@ -36,13 +36,13 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
-      - IgnoreApplicationNotFound=true
+      #- CreateNamespace=true
+      #- IgnoreApplicationNotFound=true
       # Важно: используем ServerSideApply для правильной обработки аннотаций
-      - ServerSideApply=true
+      #- ServerSideApply=true
        # Заменяем ресурс вместо попытки мержить изменения
       # - Replace=true
-      - RespectIgnoreDifferences=true
+      #- RespectIgnoreDifferences=true
       #- ServerSideApply=true  # Важно для секретов!\
     ignoreDifferences:
       - group: batch
