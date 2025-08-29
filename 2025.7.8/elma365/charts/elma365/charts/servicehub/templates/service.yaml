@@ -1,0 +1,25 @@
+{{- if .Values.global.hubEnabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "servicehub.name" . }}
+  labels:
+    {{- include "servicehub.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: {{ .Values.global.grpc_port }}
+      targetPort: grpc
+      protocol: TCP
+    - name: http
+      port: {{ .Values.global.http_port }}
+      targetPort: http
+      protocol: TCP
+    - name: http-metrics
+      port: {{ .Values.global.http_metrics }}
+      targetPort: http
+      protocol: TCP
+  selector:
+    {{- include "servicehub.selectorLabels" . | nindent 4 }}
+{{- end }}

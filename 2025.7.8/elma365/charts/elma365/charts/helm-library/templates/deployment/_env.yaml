@@ -1,0 +1,24 @@
+{{- define "helm-library.deployment.env" }}
+- name: GOMEMLIMIT
+  value: {{ include "gomemlimit" . | quote }}
+- name: GOMAXPROCS
+  value: {{ include "gomaxprocs" . | toString | toYaml }}
+{{- end }}
+
+{{- define "helm-library.deployment.env-worker-gateway" }}
+- name: GOMEMLIMIT
+  value: {{ include "gomemlimit-worker-gateway" . | quote }}
+- name: GOMAXPROCS
+  value: {{ include "gomaxprocs-worker-gateway" . | toString | toYaml }}
+{{- end }}
+
+{{- define "helm-library.deployment.env-worker-pool-config" }}
+{{- $enabled := include "helm-library.worker-pool.enabled" . }}
+{{- if $enabled }}
+{{- $workerPoolConfigFileDirectory := include "helm-library.worker-pool.config-file-directory" . }}
+{{- $workerPoolConfigFileName := include "helm-library.worker-pool.config-file-name" . }}
+{{ $filePath := printf "%s/%s" $workerPoolConfigFileDirectory $workerPoolConfigFileName | quote }}
+- name: ELMA365_WORKER_POOL_CONFIG_FILE_PATH
+  value: {{ $filePath }}
+{{- end }}
+{{- end }}
