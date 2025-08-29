@@ -136,7 +136,7 @@ elma365:
 ## максимальное время ожидания завершения скрипта (используется в graceful-shutdown)
     maxScriptTimeoutSeconds: 600
 ## время ожидания завершения скрипта по умолчанию. Ограничено значением ELMA365_MAX_SCRIPT_TIMEOUT_SECONDS
-    defaultScriptTimeoutSeconds: 60
+    defaultScriptTimeoutSeconds: 300
 ## лимит памяти для локального кэша runtime-схем (в МБ)
     runtimeSchemaCacheMemoryLimit: 100
     activeDeadlineSeconds: 3000

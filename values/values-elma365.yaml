@@ -1,5 +1,11 @@
 elma365:
   global:
+    script:
+      compileTtl: 2m
+      executeTtl: 2m
+      queueTtl: 2m
+    maintenanceInfo: false
+    maintenanceMode: false
     nodeSelector:
       node-role.kubernetes.io/worker: ""
     topologySpreadConstraints:
@@ -62,14 +68,14 @@ elma365:
         enabled: true
         all: true
       provisioner: "k8s"
-      # serviceMonitor:
-      #   labels: ""
-      #   metricRelabelings: ""
-      #   relabelings: ""
+      serviceMonitor:
+        labels: ""
+        metricRelabelings: ""
+        relabelings: ""
       dashboard:
         enabled: true
       alerts:
-        enabled: true
+        enabled: false
       lowcode:
         metricExportEnabled: false # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
 ## автомасштабирование сервисов
@@ -130,7 +136,7 @@ elma365:
 ## максимальное время ожидания завершения скрипта (используется в graceful-shutdown)
     maxScriptTimeoutSeconds: 600
 ## время ожидания завершения скрипта по умолчанию. Ограничено значением ELMA365_MAX_SCRIPT_TIMEOUT_SECONDS
-    defaultScriptTimeoutSeconds: 60
+    defaultScriptTimeoutSeconds: 300
 ## лимит памяти для локального кэша runtime-схем (в МБ)
     runtimeSchemaCacheMemoryLimit: 100
     activeDeadlineSeconds: 3000
