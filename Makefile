@@ -8,7 +8,7 @@ REPO_URL = https://github.com/lovemetrue/k8s-multi-node-argocd.git
 help:
 	@echo "🛠 Make targets:"
 	@echo "  make release-full VERSION=2025.4.1    # Создать релиз версии elma365, сгенерить apps для каждого чарта и выполнть git clean локальных веток.
-
+	@ECH "make release "
 
 VERSION ?= 0
 APPS_DIR := apps
@@ -18,8 +18,8 @@ APPS_DIR := apps
 clean-argocd:
 	@echo "🧹 Чистим ArgoCD-приложения и неймспейсы перед релизом ($(VERSION))..."
 
-	@echo "🔁 Скейлим deployments в namespace=elma365 до 0 (если есть)..."
-	@kubectl get deploy -n elma365 -o name 2>/dev/null | xargs -r -n1 kubectl scale -n elma365 --replicas=0 || true
+# 	@echo "🔁 Скейлим deployments в namespace=elma365 до 0 (если есть)..."
+# 	@kubectl get deploy -n elma365 -o name 2>/dev/null | xargs -r -n1 kubectl scale -n elma365 --replicas=0 || true
 
 	# @echo "🧹 Чистим ресурсы с hook-finalizer перед удалением namespace elma365..."
 	# @kubectl get all -n elma365 -o json 2>/dev/null \
@@ -54,15 +54,15 @@ clean-argocd:
 	@echo "⚙️ Патчим nodegroup master с maxPods=200..."
 	@kubectl patch nodegroup master --type=merge -p '{"spec":{"kubelet":{"maxPods":200}}}' || true
 	
-	@echo "🔐 Создаём TLS secret в namespace elma365-dbs..."
-	@kubectl delete secret elma365-onpremise-tls -n elma365-dbs --ignore-not-found
-	@kubectl create secret tls elma365-onpremise-tls --cert=./ssl/kind.elewise.local.crt --key=./ssl/kind.elewise.local.key -n elma365-dbs
-	@echo "🔐 Создаём TLS secret в namespace elma365..."
-	@kubectl delete secret elma365-onpremise-tls -n elma365 --ignore-not-found
-	@kubectl create secret tls elma365-onpremise-tls --cert=./ssl/kind.elewise.local.crt --key=./ssl/kind.elewise.local.key -n elma365 
-	@echo "📜 Создаём configMap с rootCA в elma365..."
-	@kubectl delete cm elma365-onpremise-ca -n elma365 --ignore-not-found
-	@kubectl create configmap elma365-onpremise-ca --from-file=elma365-onpremise-ca.pem=./ssl/rootCA.pem -n elma365
+# 	@echo "🔐 Создаём TLS secret в namespace elma365-dbs..."
+# 	@kubectl delete secret elma365-onpremise-tls -n elma365-dbs --ignore-not-found
+# 	@kubectl create secret tls elma365-onpremise-tls --cert=./ssl/kind.elewise.local.crt --key=./ssl/kind.elewise.local.key -n elma365-dbs
+# 	@echo "🔐 Создаём TLS secret в namespace elma365..."
+# 	@kubectl delete secret elma365-onpremise-tls -n elma365 --ignore-not-found
+# 	@kubectl create secret tls elma365-onpremise-tls --cert=./ssl/kind.elewise.local.crt --key=./ssl/kind.elewise.local.key -n elma365 
+# 	@echo "📜 Создаём configMap с rootCA в elma365..."
+# 	@kubectl delete cm elma365-onpremise-ca -n elma365 --ignore-not-found
+# 	@kubectl create configmap elma365-onpremise-ca --from-file=elma365-onpremise-ca.pem=./ssl/rootCA.pem -n elma365
 
 
 	# @echo "🗑 Удаляем манифесты elma365 приложений..."
