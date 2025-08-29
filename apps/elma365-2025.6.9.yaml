@@ -44,9 +44,9 @@ spec:
       # - Replace=true
       #- RespectIgnoreDifferences=true
       #- ServerSideApply=true  # Важно для секретов!\
-    ignoreDifferences:
-      - group: batch
-        kind: Job
-        name: checkdbs
-        jsonPointers:
-          - /metadata/annotations/kubectl\.kubernetes\.io~1last-applied-configuration
+    # ignoreDifferences:
+    #   - group: batch
+    #     kind: Job
+    #     name: checkdbs
+    #     jsonPointers:
+    #       - /metadata/annotations/kubectl\.kubernetes\.io~1last-applied-configuration
