@@ -93,7 +93,7 @@ elma365:
       minReplicas: 1
       maxReplicas: 9
 ## включение ресурсов
-    resourceLimits: false
+    resourceLimits: true
 ## количество попыток выполнения миграций
 #    backoffLimit: 5
 ## указание ресурсов для сервисов и задач
