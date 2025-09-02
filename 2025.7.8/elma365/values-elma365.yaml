@@ -331,13 +331,16 @@ elma365:
 #    startupProbe: {}
 ##
 ## Настройка микросервиса auth
-#  auth:
-#    replicaCount: 1
-#    resources: {}
-#    autoscaling: {}
-#    livenessProbe: {}
-#    readinessProbe: {}
-#    startupProbe: {}
+  auth:
+    replicaCount: 1
+    resources:
+      requests:
+        memory: "728Mi"
+        cpu: "350m"
+      limits:
+        memory: "1024Mi"
+        cpu: "500m"
+
 ##
 ## Настройка микросервиса babysitter
 #  babysitter:
