@@ -182,7 +182,7 @@ elma365:
 ## <cluster.local> - домен кластера, по умолчанию cluster.local
 ##
 ## строка подключения к БД Postgres, формат: postgresql://user:password@hostname:5432/databaseName
-    psqlUrl: 'postgresql://elma365:SecretPassword@k8s-postgres.vps.elewise.com:5432/elma365?sslmode=disable'
+    psqlUrl: 'postgresql://elma365:SecretPassword@postgres.k8s-postgres.vps.elewise.com:5432/elma365?sslmode=disable'
 ## строка подключения к БД Postgres только для чтения, формат: postgresql://user:password@hostname:5432/databaseName
     roPsqlUrl: ''
 ## ClusterMode - следующая строка используется для PostgreSQL в Cluster Mode
