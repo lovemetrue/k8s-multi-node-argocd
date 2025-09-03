@@ -337,12 +337,12 @@ release-tempo:
 	@helm repo add elma365 https://charts.elma365.tech || true
 	@helm repo update
 	@helm pull elma365/tempo --untar
-	@mkdir -p $(VERSION)/tempo
-	@mv tempo/* $(VERSION)/tempo/
+	@mkdir -p 0/tempo
+	@mv tempo/* 0/tempo/
 	@rm -rf tempo
 
 	@echo "📥 Копируем values-tempo.yaml..."
-	@cp values/values-tempo.yaml $(VERSION)/tempo/
+	@cp values/values-tempo.yaml 0/tempo/
 
 .PHONY: release-pyroscope
 release-pyroscope:
@@ -352,12 +352,12 @@ release-pyroscope:
 
 	@echo "📥 Скачиваем чарт Pyroscope из grafana..."
 	@helm pull grafana/pyroscope --untar
-	@mkdir -p $(VERSION)/pyroscope
-	@mv pyroscope/* $(VERSION)/pyroscope/
+	@mkdir -p 0/pyroscope
+	@mv pyroscope/* 0/pyroscope
 	@rm -rf pyroscope
 
 	@echo "📥 Копируем values/pyroscope-values.yaml..."
-	@cp values/pyroscope-values.yaml $(VERSION)/pyroscope/
+	@cp values/pyroscope-values.yaml 0/pyroscope
 
 .PHONY: release-loki
 
@@ -366,13 +366,26 @@ release-loki:
 	@helm repo add grafana https://charts.elma365.tech || true
 	@helm repo update
 	@helm pull elma365/loki --untar
-	@mkdir -p $(VERSION)/loki
-	@mv loki/* $(VERSION)/loki/
+	@mkdir -p 0/loki
+	@mv loki/* 0/loki
 	@rm -rf loki
 
 	@echo "📥 Копируем values-loki.yaml..."
-	@cp values/values-loki.yaml $(VERSION)/loki/
+	@cp values/values-loki.yaml 0/loki
 	
+.PHONY: release-dbs-exporter
+
+release-dbs-exporter:
+	@echo "📦 Скачиваем чарт dbs-exporter..."
+	@helm repo add grafana https://charts.elma365.tech || true
+	@helm repo update
+	@helm pull elma365/dbsexporter --untar
+	@mkdir -p 0/dbsexporter
+	@mv dbsexporter/* 0/dbsexporter
+	@rm -rf dbsexporter
+
+	@echo "📥 Копируем values-dbs-exporter.yaml..."
+	@cp values/values-dbsexporter.yaml 0/dbsexporter
 
 .PHONY: release-full
 release-full:  release gen-apps cleanup-git cleanup-old-apps

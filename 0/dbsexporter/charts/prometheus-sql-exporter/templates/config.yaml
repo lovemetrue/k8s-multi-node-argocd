@@ -1,0 +1,82 @@
+{{- if .Values.config -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "prometheus-sql-exporter.fullname" . }}
+  labels:
+    {{- include "prometheus-sql-exporter.labels" $ | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  config.yml: |
+    {{- .Values.config | toYaml | nindent 4 }}
+{{- else -}}
+{{- $out := . -}}
+{{- range $val := .Values.instances  }}
+{{- with $out }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-sql-exporter-{{ $val.name }} 
+  labels:
+    {{- include "prometheus-sql-exporter.labels" $ | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  config.yml: |
+    jobs:
+    - name: "postgres-{{ $val.name }}"
+      interval: '24h'
+      connections:
+      - "{{ $val.url }}"
+      queries:
+      - name: "pg_active_companies"
+        help: "Active companies"
+        labels:
+          - "dbname"
+          - "name"
+          - "type"
+          - "status"
+        values:
+          - "count"
+        query:  |
+                SELECT current_database()::text AS dbname, name::text, type::text, status::text, COUNT(*)::float AS count 
+                FROM public.companies GROUP BY name;
+        allow_zero_rows: false
+      - name: "pg_db_sizes"
+        help: "Database Sizes"
+        labels:
+          - "dbname"
+        values:
+          - "dbsize"
+        query:  |
+                SELECT datname::text AS dbname, pg_database_size(datname)::float AS dbsize
+                FROM pg_database;
+        allow_zero_rows: false
+      - name: "pg_scheme_sizes"
+        help: "Scheme Sizes"
+        labels:
+          - "dbname"
+          - "schema_name"
+          - "table_name"
+        values:
+          - "size_bytes"
+        query:  |
+                SELECT current_database()::text AS dbname,
+                        n.nspname::text AS schema_name, 
+                        c.relname::text AS table_name, 
+                        pg_total_relation_size(c.oid)::float AS size_bytes 
+                FROM pg_catalog.pg_class c 
+                JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace 
+                LEFT JOIN (VALUES ('pg_catalog'), ('information_schema')) AS excluded_schemas(name) 
+                ON n.nspname = excluded_schemas.name 
+                WHERE c.relkind = 'r' AND excluded_schemas.name IS NULL;
+        allow_zero_rows: false
+---
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,34 @@
+{{- $out := . -}}
+{{- range $val := .Values.rabbitmq.instances }}
+{{- with $out -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "prometheus-rabbitmq-exporter.configMapName" . }}-{{ $val.name }}
+  labels:
+    app: {{ template "prometheus-rabbitmq-exporter.name" . }}
+    chart: {{ template "prometheus-rabbitmq-exporter.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  {{- with .Values.additionalLabels }}
+    {{- toYaml . | indent 4 }}
+  {{- end }}
+data:
+    RABBIT_URL: {{ $val.url | quote }}
+    RABBIT_USER: {{ $val.user | quote }}
+    PUBLISH_PORT: {{ .Values.service.internalPort | quote }}
+    LOG_LEVEL: {{ .Values.loglevel | quote }}
+    RABBIT_CAPABILITIES: {{ $val.capabilities | quote }}
+    INCLUDE_QUEUES: {{ $val.include_queues | quote }}
+    INCLUDE_VHOST: {{ $val.include_vhost | quote }}
+    SKIP_QUEUES: {{ $val.skip_queues | quote }}
+    SKIPVERIFY: {{ $val.skip_verify | quote }}
+    SKIP_VHOST: {{ $val.skip_vhost | quote }}
+    RABBIT_EXPORTERS: {{ $val.exporters | quote }}
+    OUTPUT_FORMAT: {{ $val.output_format | quote }}
+    RABBIT_TIMEOUT: {{ $val.timeout | quote }}
+    MAX_QUEUES: {{ $val.max_queues | quote }}
+    EXCLUDE_METRICS: {{ $val.excludeMetrics | quote }}
+---
+{{- end }}
+{{- end }}    

@@ -1,0 +1,258 @@
+global:
+## Настройки provisioner (k8s, deckhouse)
+  provisioner: "k8s"
+## Настройки node exporter
+  nodeExporter:
+    enabled: true
+    port: 9100
+    relabelings: {}
+  ## параметры подключения к приватному registry
+  kubectl:
+  # адрес и путь для приватного registry
+    repository: hub.elma365.tech
+    tag: "1.25.13-debian-11-r17"
+    # pullSecret: ""
+## Экспорт yandex метрик
+  yandexExporter:
+    enabled: false
+    bearerToken: "your_bearerToken"
+    folderId: "your_folderId"
+    services: ["managed-mongodb", "managed-postgresql"]
+    relabelings: {}
+
+## Включение импорта графиков
+grafana-dashboards:
+  grafanaFolder: ELMA365-DBS
+
+## Настройки подключения к Minio
+prometheus-minio-exporter:
+  enabled: false
+  nameOverride: minio
+  instances:
+  ## Укажите один из источников данных.
+  - name: minio-job
+    token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoiZWxtYTM2NXVzZXIiLCJleHAiOjQ5MTA0MzE0NTl9.-pJsLoc8jODjxKXMENTjWm38vyUmT3swJco8-gIkaZXV8s39YRBueWS5UGqcVDCUrdRn2NPbzQE697HVACTk-A
+    path: /minio/v2/metrics/cluster
+    host: 'master.sale.elewise.com'
+    port: 9000
+    scheme: http
+  # - name: minio-job-ubuntu
+  #   token: generated_token
+  #   path: /minio/v2/metrics/cluster
+  #   host: '192.168.31.42'
+  #   port: 9000
+  #   scheme: http
+  ## Настройка serviceMonitor
+  ServiceMonitor:
+    enabled: true
+    interval: 60s
+  affinity: {}
+  tolerations: []
+  nodeSelector: {}
+  ## параметры подключения к приватному registry
+  image:
+  # адрес и путь для приватного registry
+    repository: hub.elma365.tech/docker/addons/minio-exporter
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "1.0.23"
+  # imagePullSecrets:
+  #   - myRegistryKeySecretName
+
+## Настройки подключения к MongoDB
+prometheus-mongodb-exporter:
+  enabled: false
+  nameOverride: mongodb
+  instances:
+  ## Укажите один из источников данных.
+    - name: mongodb
+      uri: "mongodb://root:mongorootpassword@192.168.31.42:27017/elma365?ssl=false"
+    # - name: mongodb-kubernetes
+    #   uri: "mongodb://root:mongorootpassword@mongo.default.svc.cluster.local:27017/?ssl=false&replicaSet=rs0&readPreference=secondaryPreferred"
+  ## Настройка аргументов
+  extraArgs:
+    - --collector.dbstats
+    - --compatible-mode
+    - --collector.dbstatsfreestorage
+    - --collector.diagnosticdata
+    - --collector.replicasetstatus
+    - --collector.indexstats
+    - --collector.collstats
+    - --collector.shards
+  ## Настройка serviceMonitor
+  serviceMonitor:
+    enabled: true
+    interval: 60s
+  affinity: {}
+  tolerations: []
+  nodeSelector: {}
+  ## параметры подключения к приватному registry
+  image:
+  # адрес и путь для приватного registry
+    repository: hub.elma365.tech/docker/addons/percona/mongodb_exporter
+    tag: "0.41.1"
+  # imagePullSecrets:
+  #   - myRegistryKeySecretName
+
+## Настройка подключения к Postgres
+prometheus-postgres-exporter:
+  enabled: true
+  nameOverride: postgresql
+  config:
+    instances:
+    ## Укажите один из источников данных.
+      - name: postgres
+        host: '192.168.39.150'
+        user: elma365
+        password: pgpassword
+        port: "5432"
+        database: 'elma365'
+        sslmode: disable
+        extraParams: ''
+      # - name: postgres-kubernetes
+      #   host: 'postgres.default.svc.cluster.local'
+      #   user: postgres
+      #   password: pgpassword
+      #   port: "5432"
+      #   database: 'elma365'
+      #   sslmode: disable
+      #   extraParams: ''
+    ## Отключение сборщиков
+    disableCollectorDatabase: false
+    disableCollectorBgwriter: true
+    disableDefaultMetrics: false
+    disableSettingsMetrics: false
+    extraArgs:
+      - --no-collector.statio_user_tables
+      - --no-collector.stat_user_tables
+      - --no-collector.replication_slot
+      - --no-collector.replication
+      - --no-collector.wal
+  ## Настройка serviceMonitor
+  serviceMonitor:
+    enabled: true
+    interval: 60s
+  affinity: {}
+  tolerations: []
+  nodeSelector:
+    node-role.kubernetes.io/observer: ""
+    
+## параметры подключения к приватному registry
+  image:
+# адрес и путь для приватного registry
+    registry: hub.elma365.tech/docker/addons
+    repository: prometheuscommunity/postgres-exporter
+    tag: "v0.16.0"
+#    imagePullSecrets:
+#      - myRegistryKeySecretName
+
+## Настройки подключения к rabbitMQ
+prometheus-rabbitmq-exporter:
+  enabled: true
+  nameOverride: rabbitmq
+  rabbitmq:
+    instances:
+    ## Укажите один из источников данных.
+    - name: rabbitmq
+      url: 'http://rabbitmq:15672'
+      user: elma365
+      password: rmqpassword
+      ## Указанный пароль будет помещён в Secret:
+      existingPasswordSecret: rabbitmq-secret
+      existingPasswordSecretKey: password
+      include_queues: ".*"
+      include_vhost: ".*"
+      exporters: "exchange,node,overview,queue"
+      skip_queues: "^$"
+      skip_verify: "false"
+      skip_vhost: "^$"
+      output_format: "TTY"
+      timeout: 60
+      max_queues: 0
+      excludeMetrics: ""
+      configMapOverrideReference: ""
+      capabilities: bert,no_sort
+    # - name: rabbitmq-kubernetes
+    #   url: 'http://rabbitmq.default.svc.cluster.local:15672'
+    #   user: elma365
+    #   password: rmqpassword
+    #   ## Указанный пароль будет помещён в Secret:
+    #   existingPasswordSecret: rabbitmq-secret
+    #   existingPasswordSecretKey: password
+    #   include_queues: ".*"
+    #   include_vhost: ".*"
+    #   exporters: "exchange,node,overview,queue"
+    #   skip_queues: "^$"
+    #   skip_verify: "false"
+    #   skip_vhost: "^$"
+    #   output_format: "TTY"
+    #   timeout: 60
+    #   max_queues: 0
+    #   excludeMetrics: ""
+    #   configMapOverrideReference: ""
+    #   capabilities: bert,no_sort
+  ## Настройка serviceMonitor
+  prometheus:
+    monitor:
+      enabled: true
+      interval: 60s
+  affinity: {}
+  tolerations: []
+  nodeSelector:
+    node-role.kubernetes.io/observer: ""
+## параметры подключения к приватному registry
+  image:
+# адрес и путь для приватного registry
+    repository: hub.elma365.tech/docker/addons/kbudde/rabbitmq-exporter
+    tag: "v0.29.0"
+#    imagePullSecrets:
+#      - myRegistryKeySecretName
+
+## Настройки подключения к Redis
+prometheus-redis-exporter:
+  enabled: false
+  nameOverride: redis
+  instances:
+  ## Укажите один из источников данных.
+  - name: redis
+    redisAddress: 'redis://192.168.31.42:6379/0'
+    redisUser: ""
+    redisPassword: ""
+  # - name: redis-kubernetes
+  #   redisAddress: 'redis://redis.default.svc.cluster.local:6379/0'
+  ## Настройка serviceMonitor
+  serviceMonitor:
+    enabled: true
+    interval: 60s
+  affinity: {}
+  tolerations: []
+  nodeSelector: {}
+## параметры подключения к приватному registry
+  image:
+# адрес и путь для приватного registry
+    repository: hub.elma365.tech/docker/addons/oliver006/redis_exporter
+    tag: "v1.63.0"
+#    imagePullSecrets:
+#      - myRegistryKeySecretName
+
+## Настройки подключения к БД для создания кастомных запросов
+prometheus-sql-exporter:
+  enabled: false
+  serviceMonitor:
+    enabled: true
+    interval: 1h
+    timeout: 120s
+## при заполнении config выполняются вписанные запросы, при заполнении instances выполняются
+# встроенные запросы по подсчёту размера схем и по количеству активных компаний.
+  config: {}
+  # instances:
+  #   - name: elma365-test-pg01
+  #     url: 'postgres://elma36:pgpassword@192.168.0.12:5432/elma365?sslmode=disable'
+  tolerations: []
+  nodeSelector: {}
+## параметры подключения к приватному registry
+  image:
+# адрес и путь для приватного registry
+    repository: hub.elma365.tech/docker/addons/justwatchcom/sql_exporter
+    tag: "v0.5.8"
+    # pullSecrets:
+    #   - myRegistrKeySecretName

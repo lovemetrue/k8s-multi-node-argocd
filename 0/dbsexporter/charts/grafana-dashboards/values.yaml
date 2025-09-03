@@ -1,0 +1,8 @@
+global:
+  yandexExporter:
+    enabled: false
+
+labels:
+  grafana_dashboard: "true"
+
+dashboardsFolder: "dbsexporter" # default dashboards folder

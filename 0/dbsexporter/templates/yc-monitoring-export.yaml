@@ -1,0 +1,54 @@
+{{- if eq (toString .Values.global.yandexExporter.enabled) "true" }}
+apiVersion: v1
+data:
+  token: {{ .Values.global.yandexExporter.bearerToken | b64enc }}
+kind: Secret
+metadata:
+  name: yc-monitoring-export-token
+  namespace: {{ .Release.Namespace }}
+---
+{{- $out := . -}}
+{{- range $val := .Values.global.yandexExporter.services }}
+{{- with $out -}}
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  labels:
+    app.kubernetes.io/instance: dbsexporter-team-s-elma365-ru
+  name: scrape-config-{{ $val }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  authorization:
+    type: Bearer
+    credentials:
+      key: token
+      name: yc-monitoring-export-token
+  honorLabels: true
+  metricsPath: /monitoring/v2/prometheusMetrics
+  params:
+    folderId:
+    - {{ .Values.global.yandexExporter.folderId }}
+    service:
+    - {{ $val }}
+{{- if .Values.global.yandexExporter.relabelings }}
+  relabelings:
+  - replacement: {{ $val }}
+    targetLabel: dbsexporter
+{{ toYaml .Values.global.yandexExporter.relabelings | nindent 2 }}
+{{- else }}
+  relabelings:
+  - replacement: {{ $val }}
+    targetLabel: dbsexporter
+{{- end }}
+  scheme: HTTPS
+  staticConfigs:
+  - labels:
+      folderId: {{ .Values.global.yandexExporter.folderId }}
+      job: yc-monitoring-export-token
+      service: {{ $val }}
+    targets:
+    - monitoring.api.cloud.yandex.net
+---
+{{- end }}
+{{- end }}
+{{- end }}

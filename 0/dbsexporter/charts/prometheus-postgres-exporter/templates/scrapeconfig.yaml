@@ -1,0 +1,39 @@
+{{- if eq (toString .Values.global.nodeExporter.enabled) "true" }}
+{{- $out := . -}}
+{{- range $val := .Values.config.instances }}
+{{- with $out -}}
+{{- if not (regexMatch ".svc.cluster.local" $val.host) }}
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: scrape-config-{{ $val.name }}
+  namespace: {{ .Release.Namespace }}
+{{- if eq (toString .Values.global.provisioner) "deckhouse" }}
+  labels:
+    prometheus: main
+{{- end }}
+spec:
+  honorLabels: true
+  staticConfigs:
+    - labels:
+        job: postgres-{{ $val.name }}
+      targets:
+        - {{ (split ":" ($val.host | replace "psql://" ""))._0 }}:{{ .Values.global.nodeExporter.port }}
+{{- if .Values.global.relabelings }}
+  relabelings:
+  - targetLabel: dbsexporter
+    replacement: postgres
+{{ toYaml .Values.global.relabelings | nindent 2 }}
+{{- else }}
+  relabelings:
+  - regex: endpoint|namespace|pod|service
+    action: labeldrop
+  - targetLabel: dbsexporter
+    replacement: postgres
+{{- end }}
+  metricsPath: '/metrics'
+---
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

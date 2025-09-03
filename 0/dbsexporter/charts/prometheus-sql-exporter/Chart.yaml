@@ -1,0 +1,16 @@
+apiVersion: v2
+appVersion: v0.5.8
+description: Prometheus SQL Exporter
+home: https://github.com/justwatchcom/sql_exporter
+keywords:
+- prometheus
+- sql
+- monitoring
+maintainers:
+- name: wilfriedroset
+name: prometheus-sql-exporter
+sources:
+- https://github.com/justwatchcom/sql_exporter
+- https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-sql-exporter
+type: application
+version: 0.2.0

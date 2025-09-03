@@ -1,0 +1,25 @@
+apiVersion: v2
+appVersion: 1.2.0
+dependencies:
+- name: grafana-dashboards
+  repository: file://charts/grafana-dashboards
+- condition: prometheus-minio-exporter.enabled
+  name: prometheus-minio-exporter
+  repository: file://charts/prometheus-minio-exporter
+- condition: prometheus-mongodb-exporter.enabled
+  name: prometheus-mongodb-exporter
+  repository: file://charts/prometheus-mongodb-exporter
+- condition: prometheus-postgres-exporter.enabled
+  name: prometheus-postgres-exporter
+  repository: file://charts/prometheus-postgres-exporter
+- condition: prometheus-rabbitmq-exporter.enabled
+  name: prometheus-rabbitmq-exporter
+  repository: file://charts/prometheus-rabbitmq-exporter
+- condition: prometheus-redis-exporter.enabled
+  name: prometheus-redis-exporter
+  repository: file://charts/prometheus-redis-exporter
+description: A Helm chart for deploying metrics dependencies - minio, mongodb, postgres,
+  rabbitmq, redis
+name: dbsexporter
+type: application
+version: 1.2.0

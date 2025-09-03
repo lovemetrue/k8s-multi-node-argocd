@@ -1,0 +1,18 @@
+{{- if .Values.ServiceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "minio.fullname" . }}
+  labels:
+    {{- include "minio.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "minio.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - port: minio
+    scheme: http
+    interval: {{ .Values.ServiceMonitor.interval }}
+    honorLabels: true
+    path: /metrics
+{{- end }}
