@@ -14,7 +14,7 @@ metadata:
     # argocd.argoproj.io/tracking-method: annotation
     
     # # Укажите, что это Helm-приложение
-    #argocd.argoproj.io/instance: elma365-2025.7.8
+    argocd.argoproj.io/instance: elma365-2025.7.8
     # Принудительное обновление секретов
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
@@ -29,6 +29,13 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: elma365
+  ignoreDifferences:
+    - group: batch
+      kind: Job
+      name: checkdbs
+      namespace: elma365
+      jsonPointers:
+        - /metadata/finalizers
     
   syncPolicy:
     automated:
@@ -37,3 +44,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       #- ServerSideApply=true  # Важно для секретов!
+      
