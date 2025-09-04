@@ -43,5 +43,5 @@ spec:
       prune: true
     syncOptions:
       - CreateNamespace=true
-      #- ServerSideApply=true  # Важно для секретов!
+      - ServerSideApply=true  # Важно для секретов!
       
