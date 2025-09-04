@@ -14,7 +14,7 @@ metadata:
     # argocd.argoproj.io/tracking-method: annotation
     
     # # Укажите, что это Helm-приложение
-    argocd.argoproj.io/instance: elma365-2025.7.8
+    #argocd.argoproj.io/instance: elma365-2025.7.8
     # Принудительное обновление секретов
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
