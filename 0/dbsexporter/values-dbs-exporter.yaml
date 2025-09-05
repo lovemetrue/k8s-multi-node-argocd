@@ -31,9 +31,9 @@ prometheus-minio-exporter:
   instances:
   ## Укажите один из источников данных.
   - name: minio-job
-    token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoiZWxtYTM2NXVzZXIiLCJleHAiOjQ5MTA0MzE0NTl9.-pJsLoc8jODjxKXMENTjWm38vyUmT3swJco8-gIkaZXV8s39YRBueWS5UGqcVDCUrdRn2NPbzQE697HVACTk-A
+    token: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoiZWxtYTM2NXVzZXIiLCJleHAiOjQ5MTA0MzE0NTl9.-pJsLoc8jODjxKXMENTjWm38vyUmT3swJco8-gIkaZXV8s39YRBueWS5UGqcVDCUrdRn2NPbzQE697HVACTk-A"
     path: /minio/v2/metrics/cluster
-    host: 'master.sale.elewise.com'
+    host: 'minio.local'
     port: 9000
     scheme: http
   # - name: minio-job-ubuntu
@@ -47,8 +47,12 @@ prometheus-minio-exporter:
     enabled: true
     interval: 60s
   affinity: {}
-  tolerations: []
-  nodeSelector: {}
+  tolerations:
+    - key: "node-role.kubernetes.io/observer"
+      operator: "Exists"
+      effect: "NoSchedule"
+  nodeSelector:
+    node-role.kubernetes.io/observer: ""
   ## параметры подключения к приватному registry
   image:
   # адрес и путь для приватного registry
