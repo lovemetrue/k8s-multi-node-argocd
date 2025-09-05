@@ -35,7 +35,7 @@ prometheus-minio-exporter:
     path: /minio/v2/metrics/cluster
     host: 'master.sale.elewise.com'
     port: 9000
-    scheme: http
+    scheme: https
   # - name: minio-job-ubuntu
   #   token: generated_token
   #   path: /minio/v2/metrics/cluster
