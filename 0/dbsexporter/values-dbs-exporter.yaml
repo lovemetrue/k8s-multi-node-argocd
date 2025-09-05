@@ -26,7 +26,7 @@ grafana-dashboards:
 
 ## Настройки подключения к Minio
 prometheus-minio-exporter:
-  enabled: false
+  enabled: true
   nameOverride: minio
   instances:
   ## Укажите один из источников данных.
@@ -209,12 +209,12 @@ prometheus-rabbitmq-exporter:
 
 ## Настройки подключения к Redis
 prometheus-redis-exporter:
-  enabled: false
-  nameOverride: redis
+  enabled: true
+  nameOverride: valkey
   instances:
   ## Укажите один из источников данных.
-  - name: redis
-    redisAddress: 'redis://192.168.31.42:6379/0'
+  - name: valkey
+    redisAddress: 'redis://valkey:6379/0'
     redisUser: ""
     redisPassword: ""
   # - name: redis-kubernetes
