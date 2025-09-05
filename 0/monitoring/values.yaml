@@ -102,6 +102,21 @@ kube-prometheus-stack:
       retention: 7d
       ## -- Максимальный размер метрик
       retentionSize: ""
+      addtitionalScrapeConfigs:
+        - job_name: minio-job-prometheus
+          metrics_path: /minio/v2/metrics/cluster
+          scheme: http
+          static_configs:
+            - targets: ['master.sale.elewise.com:9000']
+          bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoiZWxtYTM2NXVzZXIiLCJleHAiOjQ5MTA2NzU4OTR9.Q3Dcd6i81Ep3KmyXlZ04LJd3twcv0JzCIeIQ2kirthi_kiKnTkJ4jjS0AshbDhYahKy07Hl-bN77LaZ-Mn3nlg
+        # scrape_configs:
+      # - job_name: minio-job
+      #   bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoiZWxtYTM2NXVzZXIiLCJleHAiOjQ5MTA2NzU4OTR9.Q3Dcd6i81Ep3KmyXlZ04LJd3twcv0JzCIeIQ2kirthi_kiKnTkJ4jjS0AshbDhYahKy07Hl-bN77LaZ-Mn3nlg
+      #   metrics_path: /minio/v2/metrics/cluster
+      #   scheme: https
+      #   static_configs:
+      #   - targets: ['master.sale.elewise.com:9000']
+
   global:
     imageRegistry: "hub.elma365.tech/docker/addons"
     imagePullSecrets: []
@@ -125,3 +140,4 @@ kube-prometheus-stack:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Exists"
         effect: "NoSchedule"  
+    
