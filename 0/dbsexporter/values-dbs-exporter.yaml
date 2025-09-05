@@ -132,7 +132,10 @@ prometheus-postgres-exporter:
     enabled: true
     interval: 60s
   affinity: {}
-  tolerations: []
+  tolerations:
+    - key: "node-role.kubernetes.io/observer"
+      operator: "Exists"
+      effect: "NoSchedule"
   nodeSelector:
     node-role.kubernetes.io/observer: ""
     
@@ -196,7 +199,10 @@ prometheus-rabbitmq-exporter:
       enabled: true
       interval: 60s
   affinity: {}
-  tolerations: []
+  tolerations:
+    - key: "node-role.kubernetes.io/observer"
+      operator: "Exists"
+      effect: "NoSchedule"
   nodeSelector:
     node-role.kubernetes.io/observer: ""
 ## параметры подключения к приватному registry
