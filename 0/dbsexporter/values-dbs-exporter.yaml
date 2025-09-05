@@ -101,7 +101,7 @@ prometheus-postgres-exporter:
     instances:
     ## Укажите один из источников данных.
       - name: postgres
-        host: 'k8s-postgres.vps.elewise.com'
+        host: 'k8s-postgres.elewise.local'
         user: elma365
         password: SecretPassword
         port: "5432"
@@ -215,7 +215,7 @@ prometheus-rabbitmq-exporter:
 
 ## Настройки подключения к Redis
 prometheus-redis-exporter:
-  enabled: true
+  enabled: false
   nameOverride: valkey
   instances:
   ## Укажите один из источников данных.
@@ -242,7 +242,7 @@ prometheus-redis-exporter:
 
 ## Настройки подключения к БД для создания кастомных запросов
 prometheus-sql-exporter:
-  enabled: false
+  enabled: true
   serviceMonitor:
     enabled: true
     interval: 1h
