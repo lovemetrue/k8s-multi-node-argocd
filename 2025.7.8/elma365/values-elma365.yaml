@@ -156,7 +156,7 @@ elma365:
 ## эл. почта администратора
     email: "legkodogatca@gmail.com"
 ## пароль администратора
-    password: "test"
+    password: "testtest"
 ## язык установленной системы, возможные варианты: "ru-RU", "en-US", "sk-SK"
     locale: "ru-RU"
 ##
