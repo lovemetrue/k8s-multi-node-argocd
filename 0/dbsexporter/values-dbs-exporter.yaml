@@ -33,7 +33,7 @@ prometheus-minio-exporter:
   - name: minio-job
     token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoiZWxtYTM2NXVzZXIiLCJleHAiOjQ5MTA0MzE0NTl9.-pJsLoc8jODjxKXMENTjWm38vyUmT3swJco8-gIkaZXV8s39YRBueWS5UGqcVDCUrdRn2NPbzQE697HVACTk-A
     path: /minio/v2/metrics/cluster
-    host: 'master.sale.elewise.com'
+    host: 'minio.local'
     port: 9000
     scheme: http
   # - name: minio-job-ubuntu
