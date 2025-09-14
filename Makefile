@@ -387,6 +387,21 @@ release-dbs-exporter:
 	@echo "📥 Копируем values-dbs-exporter.yaml..."
 	@cp values/values-dbsexporter.yaml 0/dbsexporter
 
+.PHONY: release-linkerd
+release-linkerd:
+	@echo "📦 Скачиваем чарт linkerd..."
+	@helm repo add elma365 https://charts.elma365.tech
+	@helm repo update
+	@helm pull elma365/linkerd --untar
+	@mkdir -p 0/linkerd
+	@mv linkerd/* 0/linkerd
+	@rm -rf linkerd
+
+	@echo "📥 Копируем values/values-linkerd.yaml..."
+	@cp values/values-linkerd.yaml 0/linkerd
+
+
+
 .PHONY: release-full
 release-full:  release gen-apps cleanup-git cleanup-old-apps
 	@git add $(APPS_DIR)

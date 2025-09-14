@@ -1,0 +1,86 @@
+## Настройки linkerd
+linkerd:
+## DNS-имя домена Kubernetes
+  clusterDomain: cluster.local
+## добавляет  ресурс PodSecurityPolicy (устарело начиная с версии k8s v1.21)
+  enablePSP: false
+## отключить heartbeat
+  disableHeartBeat: false
+## сертификат CA
+  identityTrustAnchorsPEM: |
+    -----BEGIN CERTIFICATE-----
+    содержимое сертификата ca.crt
+    -----END CERTIFICATE-----
+  identity:
+    issuer:
+      tls:
+## сертификат эмитента
+        crtPEM: |
+          -----BEGIN CERTIFICATE-----
+          содержимое сертификата issuer.crt
+          -----END CERTIFICATE-----
+## закрытый ключ эмитента
+        keyPEM: |
+          -----BEGIN EC PRIVATE KEY-----
+          содержимое сертификата issuer-private.pem
+          -----END EC PRIVATE KEY-----
+##
+## параметры для обеспечения высокой доступности
+#  controllerReplicas: 3
+#  enablePodDisruptionBudget: true
+#  deploymentStrategy:
+#    rollingUpdate:
+#      maxUnavailable: 1
+#      maxSurge: 25%
+#  enablePodAntiAffinity: true
+  proxy:
+## параметры подключения к приватному registry
+    image:
+## адрес и путь для приватного registry
+      name: hub.elma365.tech/docker/addons/linkerd/proxy
+      version: "stable-2.14.10"  
+#    resources:
+#       cpu:
+#         request: 100m
+#       memory:
+#         limit: 250Mi
+#         request: 20Mi
+#  controllerResources: &controller_resources
+#    cpu: &controller_resources_cpu
+#      limit: ""
+#      request: 100m
+#    memory:
+#      limit: 250Mi
+#      request: 50Mi
+#  destinationResources: *controller_resources
+#  identityResources:
+#    cpu: *controller_resources_cpu
+#    memory:
+#      limit: 250Mi
+#      request: 10Mi
+#  heartbeatResources: *controller_resources
+#  proxyInjectorResources: *controller_resources
+#  webhookFailurePolicy: Ignore
+#  spValidatorResources: *controller_resources
+##
+# Параметр подключения сбора метрик
+#  podMonitor:
+#    enabled: true
+#
+## параметры подключения к приватному registry
+## адрес и путь для приватного registry
+  controllerImage: hub.elma365.tech/docker/addons/linkerd/controller
+  controllerImageVersion: "stable-2.14.10"
+  policyController:
+    image:
+## адрес и путь для приватного registry
+      name: hub.elma365.tech/docker/addons/linkerd/policy-controller
+      version: "stable-2.14.10"
+  proxyInit:
+    image:
+## адрес и путь для приватного registry
+      name: hub.elma365.tech/docker/addons/linkerd/proxy-init
+      version: "v2.2.3"
+## секрет с правами доступа к приватному registry должен быть создан вручную, зашифрованный в Base64
+#  imagePullSecrets:
+#    - name: myRegistryKeySecretName

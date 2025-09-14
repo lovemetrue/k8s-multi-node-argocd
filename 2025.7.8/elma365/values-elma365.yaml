@@ -86,14 +86,14 @@ elma365:
         metricExportEnabled: false # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
 ## автомасштабирование сервисов
     autoscaling:
-      enabled: false
+      enabled: true
 ## выбор метода автомасштабирования, доступные варианты: "hpa", "keda"
       type: "hpa"
 ## минимальное и максимальное количество реплик
-      minReplicas: 1
+      minReplicas: 2
       maxReplicas: 9
 ## включение возможности ограничивать и явно указывать квоты по сервисам.
-    resourceLimits: false
+    resourceLimits: true
 ## количество попыток выполнения миграций
 #    backoffLimit: 5
 ## указание ресурсов для сервисов и задач
