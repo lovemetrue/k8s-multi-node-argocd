@@ -12,11 +12,6 @@ spec:
     helm:
       valueFiles:
         - values-linkerd.yaml
-      parameters:
-        - name: linkerd.identity.externalCA
-          value: "true"
-        - name: linkerd.identity.issuer.scheme
-          value: "kubernetes.io/tls"
   destination:
     server: https://kubernetes.default.svc
     namespace: linkerd
