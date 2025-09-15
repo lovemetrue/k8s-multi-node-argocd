@@ -1,6 +1,10 @@
 ## Настройки linkerd
 linkerd:
 ## DNS-имя домена Kubernetes
+  tolerations:
+    - key: "node-role.kubernetes.io/observer"
+      operator: "Exists"
+      effect: "NoSchedule"
   clusterDomain: cluster.local
 ## добавляет  ресурс PodSecurityPolicy (устарело начиная с версии k8s v1.21)
   enablePSP: false
