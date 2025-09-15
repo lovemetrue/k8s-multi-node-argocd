@@ -7,13 +7,42 @@ linkerd:
 ## отключить heartbeat
   disableHeartBeat: false
 ## сертификат CA
+  identityTrustAnchorsPEM: |  
+      -----BEGIN CERTIFICATE-----
+      MIIBnjCCAUWgAwIBAgIUZe5uQz19Z8ushw2UgwZZe1HnmeswCgYIKoZIzj0EAwIw
+      JTEjMCEGA1UEAwwacm9vdC5saW5rZXJkLmNsdXN0ZXIubG9jYWwwHhcNMjUwOTE0
+      MTQyNzEzWhcNMzUwOTEyMTQyNzEzWjAlMSMwIQYDVQQDDBpyb290LmxpbmtlcmQu
+      Y2x1c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABCGELXmskmS5
+      XXhRZUFleZ9MYvoNq3HRFrU68XICjkXasX0HT3G4m1a0htayjv6U+Wjfeb5gt2Ae
+      ZNpj/4SfA26jUzBRMB0GA1UdDgQWBBTnPkkBJINO7YxNpILKOTMva6nHfDAfBgNV
+      HSMEGDAWgBTnPkkBJINO7YxNpILKOTMva6nHfDAPBgNVHRMBAf8EBTADAQH/MAoG
+      CCqGSM49BAMCA0cAMEQCIBw07Ut1Q4PTg7JpKuvTz2UnQA04tnGWqybz4J26CInR
+      AiBOuKJWv1ByDhwQaLfNIGC1e9bCgtU3nc7xkmy4SDsgfw==
+      -----END CERTIFICATE-----
   identity:
-    externalCA: true
     issuer:
-      scheme: kubernetes.io/tls
       tls:
-        secretName: linkerd-identity-issuer
-
+## сертификат эмитента
+        crtPEM: |
+          -----BEGIN CERTIFICATE-----
+          MIIBszCCAVmgAwIBAgIUbEZqcXSnBojIEP5rWC9vYJvlVXUwCgYIKoZIzj0EAwIw
+          JTEjMCEGA1UEAwwacm9vdC5saW5rZXJkLmNsdXN0ZXIubG9jYWwwHhcNMjUwOTE0
+          MTQzODU1WhcNMzUwOTEyMTQzODU1WjApMScwJQYDVQQDDB5pZGVudGl0eS5saW5r
+          ZXJkLmNsdXN0ZXIubG9jYWwwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQAaSvl
+          6NjtzLAXQB16OFFJqWEEHR8aO44oYogM60Cga3Z5ZNrgV5JDDU78ifLe/r+oOiuf
+          Yto+UdYTma1hOHs1o2MwYTAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          hjAdBgNVHQ4EFgQUOuQG8QaE1an4Km5YJujl2440OhQwHwYDVR0jBBgwFoAU5z5J
+          ASSDTu2MTaSCyjkzL2upx3wwCgYIKoZIzj0EAwIDSAAwRQIgR0sMRgwKErhlUI+p
+          uSwNDLx7YYa1GPh5gWJJYoHbc2cCIQC0cUZ7jjtn8w4uOtqFKL12vjdB3JdpANm9
+          A+PBnrFpag==
+          -----END CERTIFICATE-----
+## закрытый ключ эмитента
+        keyPEM: |
+          -----BEGIN EC PRIVATE KEY-----
+          MHcCAQEEIIGozfHoEDL7ytV45TLtjXSigBeEXMhyJ8ElT/VydbVYoAoGCCqGSM49
+          AwEHoUQDQgAEAGkr5ejY7cywF0AdejhRSalhBB0fGjuOKGKIDOtAoGt2eWTa4FeS
+          Qw1O/Iny3v6/qDorn2LaPlHWE5mtYTh7NQ==
+          -----END EC PRIVATE KEY-----
 ##
 ## параметры для обеспечения высокой доступности
   controllerReplicas: 3
