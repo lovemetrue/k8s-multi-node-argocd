@@ -283,6 +283,7 @@ elma365:
         - allowWorkCalendarsExchange
         - enableSQLPerformanceReport
         - enableBatchOperationsApplicationItems
+        - auth_enable_substitution_full_reassign
 ## флаг для включения ELMA Bot
 #        - allowLinesBots
 #    replicaCount: 1
