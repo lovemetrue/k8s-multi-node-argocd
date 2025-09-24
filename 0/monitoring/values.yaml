@@ -84,11 +84,11 @@ kube-prometheus-stack:
           effect: "NoSchedule"
       resources:
         requests:
-          cpu: 300m
-          memory: 500Mi
+          cpu: 1200m
+          memory: 1200Mi
         limits:
-          cpu: 1
-          memory: 1Gi
+          cpu: 2
+          memory: 2Gi
       # -- включить mimir в качестве долгосрочного хранилища
       # remoteWrite:
       # - url: http://mimir-nginx:80/api/v1/push

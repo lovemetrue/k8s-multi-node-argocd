@@ -4,11 +4,11 @@ metadata:
   name: pyroscope
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
-    repoURL: https://github.com/LovemeTrue/k8s-multi-node-argocd.git
+    repoURL: https://github.com/lovemetrue/k8s-multi-node-argocd.git
     targetRevision: main
     path: 0/pyroscope
     helm:
@@ -22,4 +22,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - ServerSideApply: true
+      - ServerSideApply=true

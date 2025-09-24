@@ -13,11 +13,11 @@ loki:
   loki:
     resources:
       requests:
-        cpu: 500m
-        memory: 512Mi
+        cpu: 1
+        memory: 1024Mi
       limits:
-        cpu: 650m
-        memory: 900Mi 
+        cpu: 2
+        memory: 2Gi
     # -- Включение аутентификации
     auth_enabled: false
     # -- Конфигурация хранилища.
