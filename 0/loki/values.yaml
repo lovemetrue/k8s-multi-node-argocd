@@ -53,7 +53,7 @@ loki:
       configs:
       - from: "2025-08-08"
         index:
-          period: 24h
+          period: 72h
           prefix: index_
         object_store: s3
         schema: v13
