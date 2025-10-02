@@ -51,8 +51,6 @@ prometheus-minio-exporter:
     - key: "node-role.kubernetes.io/observer"
       operator: "Exists"
       effect: "NoSchedule"
-  nodeSelector:
-    node-role.kubernetes.io/observer: ""
   ## параметры подключения к приватному registry
   image:
   # адрес и путь для приватного registry
