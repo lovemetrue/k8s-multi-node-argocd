@@ -2,9 +2,6 @@
 kube-prometheus-stack:
   # -- Настройки grafana
   grafana:
-    
-    nodeSelector:
-      node-role.kubernetes.io/observer: ""
     tolerations:
     - key: "node-role.kubernetes.io/observer"
       operator: "Exists"
