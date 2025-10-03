@@ -133,8 +133,6 @@ prometheus-postgres-exporter:
     interval: 60s
   affinity: {}
   tolerations: []
-  nodeSelector:
-    node-role.kubernetes.io/observer: ""
     
 ## параметры подключения к приватному registry
   image:
