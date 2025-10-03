@@ -1,15 +1,15 @@
 # -- Настройки monitoring
 kube-prometheus-stack:
   tolerations:
-        - key: "node-role.kubernetes.io/control-plane"
-          operator: "Exists"
-          effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
   # -- Настройки grafana
   grafana:
     tolerations:
-        - key: "node-role.kubernetes.io/control-plane"
-          operator: "Exists"
-          effect: "NoSchedule"
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
     assertNoLeakedSecrets: false
     # -- адрес по которому будет доступна grafana
     ingress:
