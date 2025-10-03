@@ -48,7 +48,7 @@ prometheus-minio-exporter:
     interval: 60s
   affinity: {}
   tolerations:
-    - key: "node-role.kubernetes.io/observer"
+    - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
       effect: "NoSchedule"
   ## параметры подключения к приватному registry
@@ -134,6 +134,10 @@ prometheus-postgres-exporter:
     enabled: true
     interval: 60s
   affinity: {}
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
 ## параметры подключения к приватному registry
   image:
 # адрес и путь для приватного registry
@@ -194,6 +198,10 @@ prometheus-rabbitmq-exporter:
       enabled: true
       interval: 60s
   affinity: {}
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
   # tolerations:
   #   - key: "node-role.kubernetes.io/observer"
   #     operator: "Exists"
