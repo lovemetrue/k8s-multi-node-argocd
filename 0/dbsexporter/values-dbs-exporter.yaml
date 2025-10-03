@@ -86,7 +86,6 @@ prometheus-mongodb-exporter:
     interval: 60s
   affinity: {}
   tolerations: []
-  nodeSelector: {}
   ## параметры подключения к приватному registry
   image:
   # адрес и путь для приватного registry
@@ -234,7 +233,7 @@ prometheus-redis-exporter:
     interval: 60s
   affinity: {}
   tolerations: []
-  nodeSelector: {}
+  # nodeSelector: {} 
 ## параметры подключения к приватному registry
   image:
 # адрес и путь для приватного registry
@@ -257,7 +256,6 @@ prometheus-sql-exporter:
   #   - name: elma365-test-pg01
   #     url: 'postgres://elma36:pgpassword@192.168.0.12:5432/elma365?sslmode=disable'
   tolerations: []
-  nodeSelector: {}
 ## параметры подключения к приватному registry
   image:
 # адрес и путь для приватного registry
