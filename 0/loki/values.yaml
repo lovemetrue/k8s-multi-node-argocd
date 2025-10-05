@@ -85,9 +85,9 @@ loki:
     verboseLogging: true
   
   # Gateway service configuration
-  service:
-  type: ClusterIP  # ← Важно! Оставляем ClusterIP
-  port: 3100
+  # service:
+  # type: ClusterIP  # ← Важно! Оставляем ClusterIP
+  # port: 3100
   
   ingress:
     enabled: true
@@ -98,7 +98,7 @@ loki:
     hosts:
       - host: loki.vps.elewise.com
         paths:
-          - path: /loki(/|$)(.*)
+          - path: /
             pathType: Prefix
   # -- Раздел для настройки дополнительного теста Helm
   test:
