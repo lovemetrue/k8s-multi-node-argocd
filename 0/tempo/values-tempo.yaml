@@ -83,7 +83,17 @@ tempo:
        - service-graphs
        - span-metrics
 
-    
+  ingress:
+  enabled: true
+  ingressClassName: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  hosts:
+    - host: tempo.vps.elewise.com
+      paths:
+        - path: /
+          pathType: Prefix
+
   tempo:
     retention: 24h
     storage:
@@ -142,11 +152,6 @@ jaeger:
   #   - myRegistryKeySecretName
   affinity:
   nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: node-role.kubernetes.io/observer
-              operator: Exists
   podAntiAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 50
