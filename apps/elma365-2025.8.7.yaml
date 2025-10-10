@@ -1,23 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tempo
+  name: elma365-2025.8.7
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
-    argocd.argoproj.io/depends-on: "[elma365-2025.8.7]"
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/depends-on: "[elma365-dbs]"
 spec:
   project: default
   source:
     repoURL: https://github.com/LovemeTrue/ArgoCI-CD.git
     targetRevision: main
-    path: 2025.8.7/tempo
+    path: 2025.8.7/elma365
     helm:
       valueFiles:
-        - values-tempo.yaml
+        - values-elma365.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: elma365
   syncPolicy:
     automated:
       prune: true
