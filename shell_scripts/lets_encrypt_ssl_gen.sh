@@ -12,8 +12,8 @@ INT_CA_NAME="elewise-intermediate-ca"
 CERT_DIR="./certs"
 MINIO_CERT_DIR="/etc/minio/certs"
 MINIO_CA_DIR="${MINIO_CERT_DIR}/CAs"
-DOMAIN="*.elewise.local"
-CN="master.elewise.local"
+DOMAIN="*.sale.come"
+CN="master.sale.elewise.com"
 
 # === ПОДГОТОВКА ===
 mkdir -p "${CERT_DIR}" "${MINIO_CA_DIR}"

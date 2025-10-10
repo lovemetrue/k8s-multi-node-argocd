@@ -4,8 +4,8 @@ elma365:
       compileTtl: 2m
       executeTtl: 2m
       queueTtl: 2m
-    maintenanceInfo: true
-    maintenanceMode: true
+    maintenanceInfo: false
+    maintenanceMode: false
     nodeSelector:
       node-role.kubernetes.io/worker: ""
     topologySpreadConstraints:
@@ -20,13 +20,24 @@ elma365:
 ## выбор редакции, доступные варианты: standard, enterprise
     edition: enterprise
     podAnnotations:
-      profiles.grafana.com/cpu.scrape: "true" # включение профилирования CPU
-      profiles.grafana.com/cpu.port_name: http # порт для профилирования CPU
-      #profiles.grafana.com/goroutine.scrape: "true" # включение профилирования goroutine
-      #profiles.grafana.com/goroutine.port_name: http # порт для профилирования goroutine
-      profiles.grafana.com/memory.scrape: "true" # включение профилирования памяти
-      profiles.grafana.com/memory.port_name: http # порт для профилирования памяти
-
+      # argocd.argoproj.io/hook-delete-policy: HookSucceeded
+      # argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+      # profiles.grafana.com/cpu.scrape: "true" # включение профилирования CPU
+      # profiles.grafana.com/cpu.port_name: http # порт для профилирования CPU
+      # profiles.grafana.com/goroutine.scrape: "true" # включение профилирования goroutine
+      # profiles.grafana.com/goroutine.port_name: http # порт для профилирования goroutine
+      # profiles.grafana.com/memory.scrape: "true" # включение профилирования памяти
+      # profiles.grafana.com/memory.port_name: http # порт для профилирования памяти
+      grafana_alloy_logs: "true"
+    # jobAnnotations:
+    #   argocd.argoproj.io/hook: PreSync
+    #   argocd.argoproj.io/sync-wave: "-4"
+    #   argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    # Для сбора метрик
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8080"
+      prometheus.io/path: "/metrics"
+      
     ingress:
 ## включение host в ingress (значение берется из host)
 ## для установленного s3 minio через чарты elma365-dbs, укажите в блоке minio
@@ -80,14 +91,14 @@ elma365:
         metricExportEnabled: false # включить экспорт метрик отчета о производительности в Prometheus (дополнение Monitoring)
 ## автомасштабирование сервисов
     autoscaling:
-      enabled: false
+      enabled: true
 ## выбор метода автомасштабирования, доступные варианты: "hpa", "keda"
       type: "hpa"
 ## минимальное и максимальное количество реплик
-      minReplicas: 1
-      maxReplicas: 9
-## включение ресурсов
-    resourceLimits: false
+      minReplicas: 2
+      maxReplicas: 6
+## включение возможности ограничивать и явно указывать квоты по сервисам.
+    resourceLimits: true
 ## количество попыток выполнения миграций
 #    backoffLimit: 5
 ## указание ресурсов для сервисов и задач
@@ -150,7 +161,7 @@ elma365:
 ## эл. почта администратора
     email: "legkodogatca@gmail.com"
 ## пароль администратора
-    password: "test"
+    password: "testtest"
 ## язык установленной системы, возможные варианты: "ru-RU", "en-US", "sk-SK"
     locale: "ru-RU"
 ##
@@ -176,9 +187,9 @@ elma365:
 ## <cluster.local> - домен кластера, по умолчанию cluster.local
 ##
 ## строка подключения к БД Postgres, формат: postgresql://user:password@hostname:5432/databaseName
-    psqlUrl: 'postgresql://postgres:pgpassword@postgres.elma365-dbs.svc.cluster.local:5432/elma365?sslmode=disable'
+    psqlUrl: 'postgresql://elma365:SecretPassword@master.sale.elewise.com:5000/elma365?sslmode=disable'
 ## строка подключения к БД Postgres только для чтения, формат: postgresql://user:password@hostname:5432/databaseName
-    roPsqlUrl: ''
+    roPsqlUrl: 'postgresql://elma365:SecretPassword@master.sale.elewise.com:5001/elma365?sslmode=disable'
 ## ClusterMode - следующая строка используется для PostgreSQL в Cluster Mode
 #    roPsqlUrl: 'postgresql://postgres:pgpassword@postgres-read.elma365-dbs.svc.cluster.local:5432/elma365?sslmode=disable'
 ## cтрока подключения к БД MongoDB для приложения, формат: mongodb://user:password@hostname:27017/databaseName
@@ -277,6 +288,7 @@ elma365:
         - allowWorkCalendarsExchange
         - enableSQLPerformanceReport
         - enableBatchOperationsApplicationItems
+        - auth_enable_substitution_full_reassign
 ## флаг для включения ELMA Bot
 #        - allowLinesBots
 #    replicaCount: 1
@@ -325,13 +337,15 @@ elma365:
 #    startupProbe: {}
 ##
 ## Настройка микросервиса auth
-#  auth:
-#    replicaCount: 1
-#    resources: {}
-#    autoscaling: {}
-#    livenessProbe: {}
-#    readinessProbe: {}
-#    startupProbe: {}
+  # auth:
+  #   replicaCount: 1
+  #   resources:
+  #     requests:
+  #       memory: "728Mi"
+  #       cpu: "350m"
+  #     limits:
+  #       memory: "1024Mi"
+  #       cpu: "500m" 
 ##
 ## Настройка микросервиса babysitter
 #  babysitter:

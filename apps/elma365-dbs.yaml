@@ -21,3 +21,20 @@ spec:
     automated:
       prune: true
       selfHeal: true
+
+  ignoreDifferences:
+    - group: batch
+      kind: Job
+      name: checkdbs
+      namespace: elma365
+      jsonPointers:
+        - /metadata/finalizers
+    
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true  # Важно для секретов!
+      

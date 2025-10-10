@@ -46,6 +46,7 @@ subjectAltName = @alt_names
 [ alt_names ]
 DNS.1 = ${DOMAIN}
 IP.1 = 192.168.29.24
+IP.2 = 192.168.39.58
 
 EOF
 
@@ -98,21 +99,9 @@ chmod -R 777 rootCA_unencrypted.key
 
 echo "Certificate created for ${DOMAIN}"
 
-kubectl delete ns elmabot
-
-kubectl create ns elmabot
-
-
-
-kubectl label ns elma365 security.deckhouse.io/pod-policy=privileged --overwrite
-
-kubectl patch nodegroup master --type=merge -p '{"spec":{"kubelet":{"maxPods":200}}}'
-
-kubectl create secret tls elmabot-onpremise-tls --cert=/home/loginov/ssl/ssl/${DOMAIN}.crt --key=/home/loginov/ssl/ssl/${DOMAIN}.key -n elma365
-kubectl create secret tls elmabot-onpremise-tls --cert=/home/loginov/ssl/ssl/${DOMAIN}.crt --key=/home/loginov/ssl/ssl/${DOMAIN}.key -n elmabot
-kubectl create configmap elmabot-onpremise-ca --from-file=eelmabot-onpremise-ca.pem=/home/loginov/ssl/ssl/rootCA.pem -n elmabot
-
-echo "Secret elma365-onpremise-tls and configmap elma365-onpremise-ca has been created for elma365, elma365-dbs. Please upgrade your helm charts"
+cp ${DOMAIN}.key /etc/ssl
+cp ${DOMAIN}.crt /etc/ssl
+cp rootCA.crt /etc/ssl/certs
 
 
 # kubectl create secret tls elma365-onpremise-tls --cert=/home/kind/ssl/${DOMAIN}.crt --key=/home/kind/ssl/${DOMAIN}.key -n elma365-dbs
