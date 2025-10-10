@@ -4,7 +4,7 @@ metadata:
   name: linkerd
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "10"
     argocd.argoproj.io/depends-on: "[elma365-2025.8.7]"
 spec:
   project: default
