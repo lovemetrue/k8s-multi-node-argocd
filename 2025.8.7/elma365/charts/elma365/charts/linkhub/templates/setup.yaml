@@ -1,0 +1,42 @@
+{{- if .Values.global.hubEnabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Chart.Name }}-setup-{{ .Values.images.setup }}
+  labels:
+    {{- include "linkhub.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+spec:
+  backoffLimit: {{ .Values.global.backoffLimit }}
+{{- if .Values.global.setupJobTtlSecondsAfterFinished }}
+  ttlSecondsAfterFinished: {{ .Values.global.setupJobTtlSecondsAfterFinished }}
+{{- end }}
+  template:
+    metadata:
+      labels:
+        sidecar.istio.io/inject: "false"
+      annotations:
+        linkerd.io/inject: disabled
+    spec:
+      imagePullSecrets:
+      {{- range .Values.global.image.pullSecret }}
+      - name: {{ . }}
+      {{- end }}
+      restartPolicy: OnFailure
+      containers:
+        - name: setup
+          image: "{{ .Values.global.image.repository }}/elma365/linkhub/setup:{{ .Values.images.setup }}"
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: elma365-env-config
+                optional: true
+            - secretRef:
+                name: elma365-db-connections
+                optional: true
+        {{- if .Values.global.helmLibrary }}
+          {{- include "helm-library.job.resources" . | indent 10 }}
+        {{- end }}
+{{- end }}

@@ -1,0 +1,108 @@
+global:
+  namespace: ""
+  host: elma365.ru
+  edition: "standard"
+  solution: "onPremise"
+  env: "production"
+  skipSslVerify: false
+  labels: {}
+  annotations: {}
+  http_port: 3000
+  http_metrics: 3100
+  grpc_port: 5000
+  replicaCount: 1
+  backoffLimit: 5
+  image:
+    repository: dreg.elewise.com:5005
+    pullPolicy: IfNotPresent
+    pullSecret:
+      - regsecret
+      - yandexsecret
+      - customsecret
+  holdingEnabled: false
+  autoscaling:
+    enabled: false
+    type: "hpa"
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+  monitoring:
+    enabled: true
+    namespace: ""
+    provisioner: "k8s"
+    dashboard:
+      enabled: true
+    alerts:
+      enabled: false
+    metrics:
+      interval: 30s
+  resourceLimits: false
+  resourcesJobs: {}
+  resources: {}
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: http
+    initialDelaySeconds: 30
+    periodSeconds: 15
+    timeoutSeconds: 2
+    failureThreshold: 1
+    successThreshold: 1
+  readinessProbe:
+    httpGet:
+      path: /readyz
+      port: http
+    initialDelaySeconds: 30
+    periodSeconds: 15
+    timeoutSeconds: 2
+    failureThreshold: 1
+    successThreshold: 1
+  podSecurityContext: {}
+  securityContext: {}
+  startupProbe: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  lifecycle: {}
+images:
+  service: ci-e87c3522
+  setup: develop
+image:
+  repository: {}
+  pullSecret: {}
+nameOverride: fulltextsearcher
+podSecurityContext: {}
+securityContext: {}
+podAnnotations: {}
+kubeVersion: ""
+resourcesJobs: {}
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "1000m"
+autoscaling: {}
+livenessProbe: {}
+readinessProbe: {}
+startupProbe: {}
+lifecycle: {}
+fulltextsearcher:
+  labels:
+    app: fulltextsearcher
+opensearch:
+  addresses: ""
+  login: ""
+  password: ""
+  textExtractorURL: ""
+  itemsTransferPerIteration: 400
+  itemsWorkers: 4
+  taskWorkers: 1
+annotations:
+  ci.elma365.com/commit: "d2888af4"
+  ci.elma365.com/checksum: "e87c3522"
+  ci.elma365.com/job_id: "3550106"
+  ci.elma365.com/timestamp: "2025-08-15T13:41:16+00:00"
+  ci.elma365.com/pipeline_id: "615588"

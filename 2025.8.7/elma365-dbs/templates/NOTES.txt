@@ -1,0 +1,10 @@
+-----------------------------------------
+Addon: ELMA365-DBs {{ .Chart.Version }}
+
+Databases:
+  - PostgreSQL 15.4.0
+  - MongoDB 6.0.10
+  - Valkey 3.0.3
+  - RabbitMQ 14.7.0
+  - S3 MinIO 2022.8.8
+-----------------------------------------

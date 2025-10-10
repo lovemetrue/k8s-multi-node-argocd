@@ -1,0 +1,21 @@
+# Global
+global:
+  hubEnabled: true
+  host: "{{ .Host }}"
+  edition: "hub"
+  solution: "saas"
+  env: "develop"
+  kubeVersion: ""
+  backoffLimit: 20
+  setupJobTtlSecondsAfterFinished: 1 # Сразу удалять завершенные setup джобы
+  managedServices:
+    enabled: true
+    namespace: {{ .StubNamespace }}
+    defaultStorageClass: "longhorn"
+  notifierV2: true
+  image:
+    pullPolicy: Always
+  ingress:
+    existingTLSSecret: "t-quickbpm-ru-cert"
+  companies:
+    - {{ .StubCompany }}

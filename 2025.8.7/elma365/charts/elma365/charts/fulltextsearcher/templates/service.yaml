@@ -1,0 +1,27 @@
+{{- if .Values.global.fulltextsearcher }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fulltextsearcher.name" . }}
+  labels:
+    {{- include "fulltextsearcher.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: {{ .Values.global.grpc_port }}
+      targetPort: grpc
+      protocol: TCP
+    - name: http
+      port: {{ .Values.global.http_port }}
+      targetPort: http
+      protocol: TCP
+    - name: http-metrics
+      port: {{ .Values.global.http_metrics }}
+      targetPort: http
+      protocol: TCP
+  selector:
+    {{- include "fulltextsearcher.selectorLabels" . | nindent 4 }}
+
+{{- end }}

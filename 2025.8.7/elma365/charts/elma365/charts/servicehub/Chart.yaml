@@ -1,0 +1,9 @@
+apiVersion: v2
+appVersion: 0.1.1
+description: servicehub
+home: https://git.elewise.com/elma365/servicehub
+name: servicehub
+sources:
+- dreg.elewise.com:5005/elma365/servicehub
+type: application
+version: 0.1.0

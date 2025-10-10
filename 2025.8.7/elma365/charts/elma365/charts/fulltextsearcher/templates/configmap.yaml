@@ -1,0 +1,15 @@
+{{- if .Values.global.fulltextsearcher }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "fulltextsearcher.name" . }}-configmap
+  labels:
+    {{- include "fulltextsearcher.labels" . | nindent 4 }}
+data:
+  ELMA365_ITEMS_TRANSFER_TASK_WORKERS: {{ .Values.opensearch.taskWorkers | quote }}
+  ELMA365_ITEMS_TRANSFER_ITEMS_WORKERS: {{ .Values.opensearch.itemsWorkers | quote }}
+  ELMA365_ITEMS_TRANSFER_ITEMS_EVENTS_TRANSFER_PER_ITERATION: {{ .Values.opensearch.itemsTransferPerIteration | quote }}
+  ELMA365_ITEMS_TRANSFER_TEXT_EXTRACTOR_URL: {{ .Values.opensearch.textExtractorURL | quote }}
+
+{{- end }}

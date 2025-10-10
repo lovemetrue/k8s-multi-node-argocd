@@ -1,0 +1,5 @@
+{{- if .Values.global.fulltextsearcher }}
+{{- if .Values.global.helmLibrary }}
+{{- include "helm-library.hpa" . }}
+{{- end }}
+{{- end }}
