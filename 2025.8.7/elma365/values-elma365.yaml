@@ -287,6 +287,7 @@ elma365:
         - enableTelephonyV2
         - allowWorkCalendarsExchange
         - enableSQLPerformanceReport
+        - enableCustomMenu
         - enableBatchOperationsApplicationItems
         - auth_enable_substitution_full_reassign
 ## флаг для включения ELMA Bot
