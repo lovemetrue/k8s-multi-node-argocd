@@ -2,10 +2,7 @@
 linkerd:
 ## DNS-имя домена Kubernetes
   tolerations:
-    # игнорируем тейнты на обсервере и мастере
-    - key: "node-role.kubernetes.io/observer"
-      operator: "Exists"
-      effect: "NoSchedule"
+    # игнорируем тейнты мастер
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
       effect: "NoSchedule"
