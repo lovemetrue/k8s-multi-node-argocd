@@ -3,7 +3,7 @@ elma365-dbs:
   global:
     postgresql:
 ## Установка postgres
-      enabled: true
+      enabled: false
     mongodb:
 ## Установка mongoDB
       enabled: true
