@@ -29,6 +29,14 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: elma365
+    ignoreDifferences:
+    - group: batch
+      kind: Job
+      name: checkdbs
+      namespace: elma365
+      jsonPointers:
+        - /metadata/finalizers
+        
   syncPolicy:
     automated:
       prune: true
